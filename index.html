@@ -192,8 +192,66 @@ header{flex-shrink:0;display:flex;align-items:center;justify-content:space-betwe
     <span id="clock">--:--:--Z</span>
     <button class="help-btn" onclick="document.getElementById('docs-modal').classList.add('open')">? HELP</button>
     <button class="help-btn" onclick="document.getElementById('key-modal').classList.add('open')" title="Set Aviationstack API key for live route data">&#9881; API KEY</button>
+    <button class="help-btn" id="loc-btn" onclick="document.getElementById('loc-modal').classList.add('open')" title="Set your home location">&#8982; LOCATION</button>
   </div>
 </header>
+
+<!-- ── Location modal ── -->
+
+<div class="modal-overlay" id="loc-modal" onclick="if(event.target===this)this.classList.remove('open')">
+  <div class="modal" style="max-width:420px">
+    <div class="modal-hdr">
+      <h1>&#8982; HOME LOCATION</h1>
+      <button class="modal-close" onclick="document.getElementById('loc-modal').classList.remove('open')">CLOSE</button>
+    </div>
+    <div class="modal-body">
+      <div class="doc-section">
+        <h2>Current Home Position</h2>
+        <div id="loc-current" style="font-family:'JetBrains Mono',monospace;font-size:0.78rem;color:var(--text);background:var(--bg3);border:1px solid var(--border);border-radius:4px;padding:10px 12px;margin-bottom:12px;line-height:1.8">
+          Loading…
+        </div>
+
+```
+    <button onclick="useGPS()" id="gps-btn" style="width:100%;background:var(--blue);border:none;border-radius:4px;color:var(--bg);font-family:'Syne',sans-serif;font-weight:800;font-size:0.8rem;padding:10px;cursor:pointer;letter-spacing:0.1em;margin-bottom:10px">
+      &#8982; USE MY CURRENT GPS POSITION
+    </button>
+    <div id="gps-status" style="font-size:0.7rem;color:var(--dim);margin-bottom:16px;min-height:1.2em"></div>
+
+    <h2>Or Enter Manually</h2>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px">
+      <div>
+        <div style="font-size:0.6rem;color:var(--dim);margin-bottom:4px;letter-spacing:0.1em">LATITUDE</div>
+        <input type="number" id="loc-lat" step="0.0001" placeholder="e.g. 53.7600"
+          style="width:100%;background:var(--bg3);border:1px solid var(--border);border-radius:4px;color:var(--text);font-family:'JetBrains Mono',monospace;font-size:0.8rem;padding:8px 10px;outline:none;box-sizing:border-box">
+      </div>
+      <div>
+        <div style="font-size:0.6rem;color:var(--dim);margin-bottom:4px;letter-spacing:0.1em">LONGITUDE</div>
+        <input type="number" id="loc-lon" step="0.0001" placeholder="e.g. -1.5942"
+          style="width:100%;background:var(--bg3);border:1px solid var(--border);border-radius:4px;color:var(--text);font-family:'JetBrains Mono',monospace;font-size:0.8rem;padding:8px 10px;outline:none;box-sizing:border-box">
+      </div>
+    </div>
+    <input type="text" id="loc-name" placeholder="Location name (e.g. My House)"
+      style="width:100%;background:var(--bg3);border:1px solid var(--border);border-radius:4px;color:var(--text);font-family:'JetBrains Mono',monospace;font-size:0.8rem;padding:8px 10px;outline:none;margin-bottom:10px;box-sizing:border-box">
+    <button onclick="saveManualLocation()"
+      style="width:100%;background:rgba(77,166,255,0.12);border:1px solid rgba(77,166,255,0.4);border-radius:4px;color:var(--blue);font-family:'Syne',sans-serif;font-weight:800;font-size:0.8rem;padding:10px;cursor:pointer;letter-spacing:0.1em;margin-bottom:10px">
+      SAVE MANUAL POSITION
+    </button>
+
+    <button onclick="resetHomeLocation()"
+      style="width:100%;background:none;border:1px solid var(--border);border-radius:4px;color:var(--dim);font-family:'JetBrains Mono',monospace;font-size:0.7rem;padding:8px;cursor:pointer">
+      RESET TO DEFAULT (LEEDS BRADFORD)
+    </button>
+    <div id="loc-status" style="margin-top:8px;font-size:0.7rem;color:var(--dim)"></div>
+
+    <div class="doc-tip" style="margin-top:14px">
+      <strong>Note:</strong> Your position is stored locally on your device only. Changing home position re-centres the map, updates the 100-mile radius and refreshes live aircraft immediately.
+    </div>
+  </div>
+</div>
+```
+
+  </div>
+</div>
 
 <!-- ── API Key modal ── -->
 
@@ -420,7 +478,7 @@ header{flex-shrink:0;display:flex;align-items:center;justify-content:space-betwe
 
   <div class="col-list">
     <div class="col-list-head">
-      <div style="font-size:0.6rem;color:var(--dim);letter-spacing:0.12em">TRAFFIC · 100mi · LEEDS</div>
+      <div style="font-size:0.6rem;color:var(--dim);letter-spacing:0.12em" id="traffic-label">TRAFFIC · 100mi · LEEDS</div>
       <div class="search-row">
         <input type="text" id="search" placeholder="callsign / hex…" oninput="renderList()">
       </div>
@@ -440,7 +498,7 @@ header{flex-shrink:0;display:flex;align-items:center;justify-content:space-betwe
   <!-- COL 2: Map -->
 
   <div class="col-map">
-    <div class="map-badge">LIVE · 100mi · LEEDS · UK</div>
+    <div class="map-badge" id="map-badge">LIVE · 100mi · LEEDS · UK</div>
     <div id="map"></div>
   </div>
 
@@ -466,7 +524,15 @@ header{flex-shrink:0;display:flex;align-items:center;justify-content:space-betwe
 // ═══════════════════════════════════════════════════════════
 // CONFIG
 // ═══════════════════════════════════════════════════════════
-const HOME_LAT = 53.7600, HOME_LON = -1.5942;
+// Home position — defaults to Leeds Bradford, overridden by user's GPS if set
+let HOME_LAT = 53.7600, HOME_LON = -1.5942;
+let HOME_NAME = 'Leeds Bradford';
+try {
+  const saved = JSON.parse(localStorage.getItem('sw_home') || 'null');
+  if (saved && saved.lat && saved.lon) {
+    HOME_LAT = saved.lat; HOME_LON = saved.lon; HOME_NAME = saved.name || 'My Location';
+  }
+} catch(e){}
 const RADIUS_MI = 100, RADIUS_NM = 87;
 
 // ═══════════════════════════════════════════════════════════
@@ -515,19 +581,23 @@ const SECTORS = [
 
   // ── SCOTTISH CONTROL (Prestwick ATCC) ──────────────────────────────────────
   // Low sectors (SFC–FL245 where allocated)
-  { id:'ScTAY',  altMin:0,    altMax:24500, lat:[53.5,56.5], lon:[-2.0,0.5],  freq:'124.500', name:'Scottish Control – Tay East',           desc:'Tay East sector covering Yorkshire/Humber & North Sea low/mid (Prestwick ATCC)', conf:90, centre:[55.0,-0.5] },
-  { id:'ScANTRIM',altMin:0,   altMax:24500, lat:[54.0,56.0], lon:[-7.0,-4.0], freq:'123.775', name:'Scottish Control – Antrim',             desc:'Antrim sector, Northern Ireland low airspace',                                  conf:86, centre:[54.8,-5.5] },
-  { id:'ScGALN',  altMin:0,   altMax:24500, lat:[54.0,56.5], lon:[-5.5,-2.5], freq:'121.375', name:'Scottish Control – Galloway North',     desc:'Galloway North sector, SW Scotland low/mid',                                   conf:85, centre:[55.2,-4.0] },
-  { id:'ScGALS',  altMin:0,   altMax:24500, lat:[53.5,55.5], lon:[-4.5,-2.0], freq:'124.825', name:'Scottish Control – Galloway South',     desc:'Galloway South / TMA outbound, central Scotland low',                          conf:84, centre:[54.5,-3.0] },
-  { id:'ScTALLAN',altMin:0,   altMax:24500, lat:[55.5,57.5], lon:[-4.5,-2.0], freq:'130.975', name:'Scottish Control – Talla North',        desc:'Talla North sector, Central Scotland',                                         conf:85, centre:[56.5,-3.0] },
-  { id:'ScTALLAS',altMin:0,   altMax:24500, lat:[54.5,56.5], lon:[-3.5,-1.5], freq:'126.300', name:'Scottish Control – Talla South',        desc:'Talla South / TMA inbound sector, Scottish Borders & N.England',               conf:87, centre:[55.5,-2.5] },
-  { id:'ScWCL',   altMin:0,   altMax:24500, lat:[54.5,58.0], lon:[-7.5,-4.5], freq:'127.275', name:'Scottish Control – West Coast Low',     desc:'West Coast Low sector, Hebrides & Irish Sea',                                  conf:84, centre:[56.5,-5.5] },
-  { id:'ScHEB',   altMin:0,   altMax:24500, lat:[56.5,59.5], lon:[-9.0,-4.0], freq:'133.675', name:'Scottish Control – Hebrides',           desc:'Hebrides sector, NW Scotland',                                                 conf:82, centre:[57.5,-6.5] },
-  { id:'ScMORAY', altMin:0,   altMax:24500, lat:[57.0,59.5], lon:[-4.0,-0.5], freq:'134.850', name:'Scottish Control – Moray',              desc:'Moray sector, NE Scotland',                                                    conf:83, centre:[57.8,-2.5] },
-  { id:'ScHUMBER',altMin:0,   altMax:7500,  lat:[53.0,55.0], lon:[-2.5,1.0],  freq:'121.325', name:'Scottish Control – Humber Low',        desc:'Humber sector low airspace, Yorkshire/Lincolnshire',                           conf:85, centre:[53.8,-0.5] },
-  { id:'ScTYNE',  altMin:7500,altMax:24500, lat:[54.5,56.5], lon:[-2.5,0.5],  freq:'134.775', name:'Scottish Control – Tyne',              desc:'Tyne sector FL75–FL245, NE England / North Sea',                               conf:88, centre:[55.5,-1.0] },
+  // Tay East: covers Yorkshire/Humber/E.England low-level (53°N–57°N, eastern half)
+  { id:'ScTAY',  altMin:0,    altMax:24500, lat:[53.0,57.0], lon:[-1.5,2.0],  freq:'124.500', name:'Scottish Control – Tay East',           desc:'Tay East sector, Yorkshire/Humber/E.Scotland & North Sea low/mid (Prestwick ATCC)', conf:88, centre:[55.0,0.0]  },
+  // Wallasey: Manchester/Irish Sea/Yorkshire west, <FL245 — key sector for Leeds/Manchester area
+  { id:'ScWALL', altMin:0,    altMax:24500, lat:[52.5,54.5], lon:[-4.0,-1.0], freq:'128.055', name:'Scottish Control – Wallasey',            desc:'Wallasey sector, Manchester/W.Yorkshire/Irish Sea (Prestwick ATCC)',                conf:90, centre:[53.5,-2.2] },
+  { id:'ScANTRIM',altMin:0,  altMax:24500, lat:[54.0,56.0], lon:[-7.0,-4.0], freq:'123.775', name:'Scottish Control – Antrim',             desc:'Antrim sector, Northern Ireland low airspace',                                  conf:86, centre:[54.8,-5.5] },
+  { id:'ScGALN',  altMin:0,  altMax:24500, lat:[54.0,56.5], lon:[-5.5,-2.5], freq:'121.375', name:'Scottish Control – Galloway North',     desc:'Galloway North sector, SW Scotland low/mid (outbound via TRN/DCS)',             conf:85, centre:[55.2,-4.0] },
+  { id:'ScGALS',  altMin:0,  altMax:24500, lat:[53.5,55.5], lon:[-4.5,-2.0], freq:'124.825', name:'Scottish Control – Galloway South',     desc:'Galloway South / TMA outbound, central Scotland low',                          conf:84, centre:[54.5,-3.0] },
+  { id:'ScTALLAN',altMin:0,  altMax:24500, lat:[55.5,57.5], lon:[-4.5,-2.0], freq:'130.975', name:'Scottish Control – Talla North',        desc:'Talla North sector, Central Scotland (inbound via Tweed/Lanak)',               conf:85, centre:[56.5,-3.0] },
+  { id:'ScTALLAS',altMin:0,  altMax:24500, lat:[54.5,56.5], lon:[-4.0,-1.5], freq:'126.300', name:'Scottish Control – Talla South',        desc:'Talla South / TMA inbound sector, Scottish Borders, Central Scotland & N.England',conf:88, centre:[55.5,-2.8] },
+  { id:'ScWCL',   altMin:0,  altMax:24500, lat:[54.5,58.0], lon:[-7.5,-4.5], freq:'127.275', name:'Scottish Control – West Coast Low',     desc:'West Coast Low sector, Hebrides & Irish Sea',                                  conf:84, centre:[56.5,-5.5] },
+  { id:'ScHEB',   altMin:0,  altMax:24500, lat:[56.5,59.5], lon:[-9.0,-4.0], freq:'133.675', name:'Scottish Control – Hebrides',           desc:'Hebrides sector, NW Scotland',                                                 conf:82, centre:[57.5,-6.5] },
+  { id:'ScMORAY', altMin:0,  altMax:24500, lat:[57.0,59.5], lon:[-4.0,-0.5], freq:'134.850', name:'Scottish Control – Moray',              desc:'Moray sector, NE Scotland',                                                    conf:83, centre:[57.8,-2.5] },
+  { id:'ScHUMBER',altMin:0,  altMax:7500,  lat:[52.5,55.0], lon:[-1.5,1.5],  freq:'121.325', name:'Scottish Control – Humber Low',        desc:'Humber sector low airspace, Yorkshire/Lincolnshire below FL075',               conf:85, centre:[53.8,-0.0] },
+  { id:'ScTYNE',  altMin:7500,altMax:24500,lat:[54.0,57.0], lon:[-2.5,1.0],  freq:'134.775', name:'Scottish Control – Tyne',              desc:'Tyne sector FL75–FL245, NE England / North Sea',                               conf:89, centre:[55.5,-0.5] },
   // High/Upper sectors (FL245+)
-  { id:'ScDEANS', altMin:24500,altMax:66000,lat:[54.0,57.5], lon:[-4.5,-1.0], freq:'135.525', name:'Scottish Upper – Deancross South',     desc:'Deancross South sector FL245+, central Scotland upper',                        conf:90, centre:[55.8,-2.5] },
+  // Deancross South: FL245+ central Scotland — extends south to ~53°N to cover Leeds/Yorkshire upper
+  { id:'ScDEANS', altMin:24500,altMax:66000,lat:[53.0,57.5], lon:[-4.5,-0.5], freq:'135.525', name:'Scottish Upper – Deancross South',     desc:'Deancross South sector FL245+, central Scotland & N.England upper (Pennines)',      conf:91, centre:[55.5,-1.8] },
   { id:'ScDEANN', altMin:24500,altMax:66000,lat:[56.5,61.0], lon:[-6.0,-1.0], freq:'135.850', name:'Scottish Upper – Deancross North',     desc:'Deancross North sector FL245+, N.Scotland upper',                              conf:90, centre:[58.0,-3.0] },
   { id:'ScMONTS', altMin:24500,altMax:66000,lat:[54.5,57.0], lon:[-2.0,2.0],  freq:'126.925', name:'Scottish Upper – Montrose South',      desc:'Montrose South FL245+, eastern Scotland / North Sea upper',                    conf:89, centre:[55.8,0.0]  },
   { id:'ScMONTN', altMin:24500,altMax:66000,lat:[57.0,61.0], lon:[-2.0,2.0],  freq:'132.492', name:'Scottish Upper – Montrose North',      desc:'Montrose North FL245+, far north / North Sea upper',                           conf:88, centre:[58.5,0.0]  },
@@ -540,18 +610,20 @@ const SECTORS = [
   { id:'LcNE',    altMin:2000, altMax:24500, lat:[51.0,54.0], lon:[-1.5,1.5],  freq:'118.825', name:'London Control – NE Departures',      desc:'North East sector, Stansted/Luton/Heathrow NE departures',                     conf:85, centre:[52.5,0.0]  },
   { id:'LcSE',    altMin:2000, altMax:24500, lat:[50.5,52.5], lon:[-1.0,2.0],  freq:'120.525', name:'London Control – SE Biggin',          desc:'South East sector, Biggin Hill departures / SE England',                       conf:84, centre:[51.3,0.5]  },
   { id:'LcNW',    altMin:2000, altMax:24500, lat:[51.0,53.5], lon:[-3.5,-1.0], freq:'121.275', name:'London Control – NW BNN/Bovington',   desc:'North West sector, BNN/Bovington inbound, W.Midlands',                         conf:84, centre:[52.0,-2.0] },
-  { id:'LcN',     altMin:2000, altMax:24500, lat:[51.5,54.5], lon:[-2.5,0.5],  freq:'129.275', name:'London Control – North LOREL',        desc:'North sector LOREL fix, N.Midlands / Nottingham area',                         conf:85, centre:[52.8,-1.0] },
+  { id:'LcN',     altMin:2000, altMax:24500, lat:[51.5,53.5], lon:[-2.5,0.5],  freq:'129.275', name:'London Control – North LOREL',        desc:'North sector LOREL fix, N.Midlands / Nottingham area',                         conf:85, centre:[52.5,-1.0] },
   { id:'LcSW',    altMin:2000, altMax:24500, lat:[50.0,52.5], lon:[-4.0,-1.0], freq:'129.075', name:'London Control – SW Ockham',          desc:'South West sector OCK/Ockham, SW England',                                     conf:83, centre:[51.0,-2.5] },
   { id:'LcW',     altMin:2000, altMax:24500, lat:[50.5,53.0], lon:[-5.0,-2.5], freq:'130.925', name:'London Control – West WELIN',         desc:'West sector WELIN, Bristol/Wales/SW England',                                  conf:82, centre:[51.5,-3.5] },
   { id:'LcSW2',   altMin:2000, altMax:24500, lat:[50.0,52.0], lon:[-3.0,-0.5], freq:'133.175', name:'London Control – SW WILLO',           desc:'South West sector WILLO, S.England approach feeds',                            conf:82, centre:[51.0,-1.5] },
   { id:'LcDOV',   altMin:0,    altMax:24500, lat:[50.0,52.0], lon:[-1.0,3.0],  freq:'134.900', name:'London Control – Dover Low',          desc:'Dover Low sector S15, SE England / Channel',                                   conf:83, centre:[51.0,1.0]  },
-  // London Upper sectors
-  { id:'LcUE_S02',altMin:24500,altMax:66000, lat:[51.0,54.0], lon:[-1.0,2.0],  freq:'127.425', name:'London Upper – East S02',             desc:'London Upper East S02, FL245+ eastern England',                                conf:88, centre:[52.0,0.5]  },
-  { id:'LcUE_S26',altMin:24500,altMax:66000, lat:[50.5,54.0], lon:[-2.0,0.5],  freq:'132.600', name:'London Upper – Middle East S26',      desc:'London Upper Middle East S26, FL245+ central-eastern',                         conf:88, centre:[52.0,-1.0] },
-  { id:'LcUW_S25',altMin:24500,altMax:66000, lat:[50.5,53.5], lon:[-5.0,-2.0], freq:'132.167', name:'London Upper – Middle West S25',      desc:'London Upper Middle West S25, FL245+ western England',                         conf:87, centre:[51.5,-3.5] },
-  { id:'LcUS24',  altMin:24500,altMax:66000, lat:[49.5,52.0], lon:[-2.0,2.0],  freq:'134.458', name:'London Upper – South S24',            desc:'London Upper South S24, FL245+ southern England',                              conf:87, centre:[50.5,0.0]  },
-  { id:'LcHurnE', altMin:24500,altMax:66000, lat:[50.0,52.5], lon:[-2.5,0.0],  freq:'135.050', name:'London Upper – Hurn East S19',        desc:'Hurn East S19, FL245+ S.England',                                             conf:86, centre:[51.0,-1.0] },
-  { id:'LcHurnW', altMin:24500,altMax:66000, lat:[50.0,52.5], lon:[-5.0,-2.0], freq:'129.425', name:'London Upper – Hurn West S20/21',     desc:'Hurn West S20/21, FL245+ SW England / Bristol Channel',                        conf:86, centre:[51.0,-3.5] },
+  // London Upper sectors — extended to cover realistic traffic flows
+  { id:'LcUE_S02',altMin:24500,altMax:66000, lat:[51.0,54.5], lon:[-1.5,2.0],  freq:'127.425', name:'London Upper – East S02',             desc:'London Upper East S02, FL245+ eastern England',                                conf:88, centre:[52.5,0.5]  },
+  { id:'LcUE_S26',altMin:24500,altMax:66000, lat:[50.0,54.5], lon:[-2.5,0.5],  freq:'132.600', name:'London Upper – Middle East S26',      desc:'London Upper Middle East S26, FL245+ central-eastern England',                 conf:88, centre:[52.0,-1.0] },
+  { id:'LcUW_S25',altMin:24500,altMax:66000, lat:[49.5,54.0], lon:[-5.5,-2.0], freq:'132.167', name:'London Upper – Middle West S25',      desc:'London Upper Middle West S25, FL245+ western England',                         conf:87, centre:[51.5,-3.5] },
+  { id:'LcUS24',  altMin:24500,altMax:66000, lat:[49.0,52.5], lon:[-2.5,2.0],  freq:'134.458', name:'London Upper – South S24',            desc:'London Upper South S24, FL245+ southern England / Channel',                    conf:87, centre:[50.5,0.0]  },
+  { id:'LcHurnE', altMin:24500,altMax:66000, lat:[49.5,52.5], lon:[-3.0,0.5],  freq:'135.050', name:'London Upper – Hurn East S19',        desc:'Hurn East S19, FL245+ S.England',                                             conf:86, centre:[51.0,-1.0] },
+  { id:'LcHurnW', altMin:24500,altMax:66000, lat:[49.5,52.5], lon:[-6.0,-2.5], freq:'129.425', name:'London Upper – Hurn West S20/21',     desc:'Hurn West S20/21, FL245+ SW England / Bristol Channel',                        conf:86, centre:[51.0,-3.5] },
+  // Maastricht UAC — used for upper airspace eastbound into Europe
+  { id:'MaasUAC', altMin:24500,altMax:66000, lat:[50.0,53.5], lon:[0.5,6.0],   freq:'132.450', name:'Maastricht UAC',                      desc:'Maastricht Upper Area Control, FL245+ NW Europe / Channel eastbound',          conf:84, centre:[51.5,3.0]  },
 ];
 
 // ═══════════════════════════════════════════════════════════
@@ -1020,25 +1092,20 @@ function computeFrequencies(ac) {
 
   } // end approach phase
 
-  // Guard always last
-  results.push({freq:'121.500',name:'Guard / Distress',desc:'International emergency — monitored by all ATC & aircraft',type:'guard',confidence:100,reason:'ICAO requirement — always monitored'});
-  // Air-to-air for cruise/dep
-  if(phase==='cruise'||phase==='departure') results.push({freq:'122.750',name:'Air-to-Air Common',desc:'VHF pilot-to-pilot',type:'air',confidence:48,reason:'Standard VHF air-to-air'});
+  // Air-to-air for cruise/dep — below 70% threshold, filtered
+  // (removed Guard/Distress 121.500 — not shown as a recommendation)
 
-  // Filter: only show ≥70% confidence
-  // Exceptions: Guard (always shown), NEXT SECTOR (always shown as advisory)
-  const guard   = results.filter(r => r.type === 'guard');
+  // Filter: only show ≥70% confidence, exclude Guard
   const nextSec = results.filter(r => r.isNextSector);
   const primary = results
     .filter(r => !r.isNextSector && r.type !== 'guard' && r.confidence >= 70)
     .sort((a,b) => b.confidence - a.confidence);
-  // Compose: [best, ...nextSectors, ...rest, ...guard]
+  // Compose: [best, ...nextSectors, ...rest]
   const [first, ...others] = primary;
   const freqs = [
     ...(first ? [first] : []),
     ...nextSec,
     ...others,
-    ...guard,
   ];
   return { freqs, reasoning, phase, nearApt, overflying };
 }
@@ -1700,13 +1767,20 @@ function projectPoint(lat, lon, bearingDeg, distKm) {
   return [lat2 * 180/Math.PI, lon2 * 180/Math.PI];
 }
 
+let homeMarker = null;
+let homeCircle = null;
+
 function initMap(){
   map=L.map('map',{center:[HOME_LAT,HOME_LON],zoom:7,zoomControl:true});
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution:'© OpenStreetMap',maxZoom:18}).addTo(map);
-  // Home marker
-  L.marker([HOME_LAT,HOME_LON],{icon:L.divIcon({className:'',html:'<div style="width:9px;height:9px;background:var(--amber);border-radius:50%;box-shadow:0 0 8px rgba(255,193,66,0.8)"></div>',iconAnchor:[4,4]})}).addTo(map).bindPopup('<div class="pop-cs">Leeds</div>');
-  // Radius circle
-  L.circle([HOME_LAT,HOME_LON],{radius:RADIUS_MI*1609.34,color:'rgba(77,166,255,0.35)',fillColor:'rgba(77,166,255,0.03)',fillOpacity:1,weight:1,dashArray:'4 6'}).addTo(map);
+  placeHomeMarker();
+}
+
+function placeHomeMarker(){
+  if(homeMarker){ homeMarker.remove(); homeMarker=null; }
+  if(homeCircle){ homeCircle.remove(); homeCircle=null; }
+  homeMarker = L.marker([HOME_LAT,HOME_LON],{icon:L.divIcon({className:'',html:'<div style="width:9px;height:9px;background:var(--amber);border-radius:50%;box-shadow:0 0 8px rgba(255,193,66,0.8)"></div>',iconAnchor:[4,4]})}).addTo(map).bindPopup(`<div class="pop-cs">&#8982; ${HOME_NAME}</div>`);
+  homeCircle = L.circle([HOME_LAT,HOME_LON],{radius:RADIUS_MI*1609.34,color:'rgba(77,166,255,0.35)',fillColor:'rgba(77,166,255,0.03)',fillOpacity:1,weight:1,dashArray:'4 6'}).addTo(map);
 }
 
 function acIcon(ac, isSel){
@@ -1823,6 +1897,26 @@ function updateMapMarkers(){
     const pfx = getIcaoPrefixFromCallsign(cs);
     const alOp = pfx ? AIRLINES[pfx] : null;
     const popBadge = pfx ? operatorBadge(pfx,'sm') : '';
+
+    // Compute top frequency and next sector for the popup
+    const {freqs: popFreqs} = computeFrequencies(a);
+    const topFreq  = popFreqs.find(f => f.confidence > 75 && f.type !== 'guard' && !f.isNextSector);
+    const nextFreq = popFreqs.find(f => f.isNextSector);
+
+    const freqRow = (label, freq, col) => freq
+      ? `<div style="margin-top:5px;padding:5px 8px;background:rgba(${col},0.08);border:1px solid rgba(${col},0.25);border-radius:3px">
+           <div style="font-size:0.5rem;color:rgba(${col},0.7);letter-spacing:0.14em;font-family:'Syne',sans-serif;margin-bottom:2px">${label}</div>
+           <div style="display:flex;justify-content:space-between;align-items:center">
+             <div>
+               <span style="font-family:'Syne',sans-serif;font-weight:800;font-size:0.95rem;color:rgb(${col});line-height:1">${freq.freq}</span>
+               <span style="font-size:0.52rem;font-family:'JetBrains Mono',monospace;color:var(--dim);margin-left:2px">MHz</span>
+             </div>
+             <div style="font-size:0.58rem;color:${confCol(freq.confidence)};font-weight:700">${freq.confidence}%</div>
+           </div>
+           <div style="font-size:0.56rem;color:var(--dim);margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${freq.name.replace(' (NEXT)','')}</div>
+         </div>`
+      : '';
+
     const popup=`
       <div style="display:flex;align-items:center;gap:8px;margin-bottom:5px">
         ${popBadge}
@@ -1834,6 +1928,8 @@ function updateMapMarkers(){
       <div style="color:var(--dim);font-size:0.65rem">${(a.icao24||'').toUpperCase()} · ${a.aircraft_type||'?'} · ${a.registration||''}</div>
       <div style="margin-top:4px;font-size:0.68rem">FL${Math.round(alt*3.28084/100)} · ${fmtSpd(a.velocity)} · hdg ${fmtHdg(a.true_track)}</div>
       <div style="margin-top:3px;font-size:0.65rem;color:var(--dim)">Phase: <span style="color:var(--text)">${getPhase(a).toUpperCase()}</span></div>
+      ${freqRow('CURRENT FREQUENCY', topFreq,  '77,166,255')}
+      ${freqRow('NEXT FREQUENCY',    nextFreq, '255,193,66')}
       <button onclick="selectAc('${a.icao24}')" style="margin-top:9px;width:100%;background:rgba(77,166,255,0.12);border:1px solid rgba(77,166,255,0.4);color:#4da6ff;font-family:'JetBrains Mono',monospace;font-size:0.58rem;padding:6px 10px;cursor:pointer;border-radius:3px;letter-spacing:0.05em">ANALYSE — GET ATC FREQUENCIES</button>
       <div style="margin-top:5px;font-size:0.6rem;color:var(--dim);line-height:1.5">Calculates likely ATC frequencies from position, altitude, heading and sector data</div>`;
 
@@ -1988,6 +2084,107 @@ function saveApiKey() {
 }
 
 // ═══════════════════════════════════════════════════════════
+// LOCATION MANAGEMENT
+// ═══════════════════════════════════════════════════════════
+function applyHomeLocation(lat, lon, name) {
+  HOME_LAT = lat; HOME_LON = lon; HOME_NAME = name;
+  try { localStorage.setItem('sw_home', JSON.stringify({lat, lon, name})); } catch(e){}
+
+  // Update all UI labels
+  const tl = document.getElementById('traffic-label');
+  const mb = document.getElementById('map-badge');
+  if(tl) tl.textContent = `TRAFFIC · 100mi · ${name.toUpperCase()}`;
+  if(mb) mb.textContent = `LIVE · 100mi · ${name.toUpperCase()} · UK`;
+
+  // Re-centre map and redraw home marker + radius
+  if(map){ map.flyTo([lat, lon], 7, {duration:1.2}); placeHomeMarker(); }
+
+  // Clear all aircraft, trails, vectors and re-fetch
+  allAircraft = [];
+  Object.values(mapMarkers).forEach(m=>m.remove()); Object.keys(mapMarkers).forEach(k=>delete mapMarkers[k]);
+  Object.values(mapTrails).forEach(segs=>segs.forEach(l=>l.remove())); Object.keys(mapTrails).forEach(k=>delete mapTrails[k]);
+  Object.values(mapVectors).forEach(v=>v.remove()); Object.keys(mapVectors).forEach(k=>delete mapVectors[k]);
+  Object.keys(posHistory).forEach(k=>delete posHistory[k]);
+  fetchAircraft();
+
+  updateLocModal();
+}
+
+function updateLocModal() {
+  // Update header labels
+  const tl = document.getElementById('traffic-label');
+  const mb = document.getElementById('map-badge');
+  if(tl) tl.textContent = `TRAFFIC · 100mi · ${HOME_NAME.toUpperCase()}`;
+  if(mb) mb.textContent = `LIVE · 100mi · ${HOME_NAME.toUpperCase()} · UK`;
+  // Update modal current position display
+  const el = document.getElementById('loc-current');
+  if(el) el.innerHTML = `<span style="color:var(--blue)">${HOME_NAME}</span><br>${HOME_LAT.toFixed(4)}°N, ${HOME_LON.toFixed(4)}°E`;
+  const latEl = document.getElementById('loc-lat');
+  const lonEl = document.getElementById('loc-lon');
+  const nameEl = document.getElementById('loc-name');
+  if(latEl) latEl.value = HOME_LAT.toFixed(4);
+  if(lonEl) lonEl.value = HOME_LON.toFixed(4);
+  if(nameEl) nameEl.value = HOME_NAME !== 'Leeds Bradford' ? HOME_NAME : '';
+}
+
+function useGPS() {
+  const btn = document.getElementById('gps-btn');
+  const st  = document.getElementById('gps-status');
+  if(!navigator.geolocation){ st.textContent='Geolocation not supported by this browser.'; st.style.color='var(--red)'; return; }
+  btn.textContent = '⏳ LOCATING…';
+  btn.style.opacity = '0.6';
+  st.textContent = 'Requesting GPS position…';
+  st.style.color = 'var(--dim)';
+  navigator.geolocation.getCurrentPosition(
+    pos => {
+      const lat  = parseFloat(pos.coords.latitude.toFixed(4));
+      const lon  = parseFloat(pos.coords.longitude.toFixed(4));
+      const acc  = Math.round(pos.coords.accuracy);
+      const name = 'My Location';
+      btn.textContent = '⌖ USE MY CURRENT GPS POSITION';
+      btn.style.opacity = '1';
+      st.textContent = `Position acquired (±${acc}m accuracy). Applying…`;
+      st.style.color = 'var(--green)';
+      const locSt = document.getElementById('loc-status');
+      if(locSt){ locSt.textContent = `Home set to ${lat}°N, ${lon}°E`; locSt.style.color='var(--green)'; }
+      applyHomeLocation(lat, lon, name);
+      setTimeout(()=>document.getElementById('loc-modal').classList.remove('open'), 1200);
+    },
+    err => {
+      btn.textContent = '⌖ USE MY CURRENT GPS POSITION';
+      btn.style.opacity = '1';
+      const msgs = { 1:'Permission denied — allow location access in browser settings.', 2:'Position unavailable — try again outdoors.', 3:'Timed out — try again.' };
+      st.textContent = msgs[err.code] || 'GPS error.';
+      st.style.color = 'var(--red)';
+    },
+    { enableHighAccuracy:true, timeout:12000, maximumAge:0 }
+  );
+}
+
+function saveManualLocation() {
+  const lat  = parseFloat(document.getElementById('loc-lat').value);
+  const lon  = parseFloat(document.getElementById('loc-lon').value);
+  const name = document.getElementById('loc-name').value.trim() || 'My Location';
+  const st   = document.getElementById('loc-status');
+  if(isNaN(lat) || isNaN(lon) || lat<-90||lat>90||lon<-180||lon>180){
+    st.textContent = 'Invalid coordinates. Latitude -90 to 90, Longitude -180 to 180.';
+    st.style.color = 'var(--red)'; return;
+  }
+  st.textContent = `Home set to ${name} (${lat}°N, ${lon}°E)`;
+  st.style.color = 'var(--green)';
+  applyHomeLocation(lat, lon, name);
+  setTimeout(()=>document.getElementById('loc-modal').classList.remove('open'), 1200);
+}
+
+function resetHomeLocation() {
+  const st = document.getElementById('loc-status');
+  applyHomeLocation(53.7600, -1.5942, 'Leeds Bradford');
+  st.textContent = 'Reset to Leeds Bradford.';
+  st.style.color = 'var(--amber)';
+  setTimeout(()=>document.getElementById('loc-modal').classList.remove('open'), 1000);
+}
+
+// ═══════════════════════════════════════════════════════════
 // INIT
 // ═══════════════════════════════════════════════════════════
 initMap();
@@ -1996,6 +2193,8 @@ try {
   const stored = localStorage.getItem('sw_avstack_key') || '';
   if (stored) document.getElementById('avstack-key-input').value = stored;
 } catch(e){}
+// Populate location modal with current home
+updateLocModal();
 fetchAircraft();
 setInterval(fetchAircraft, 45000);
 </script>
