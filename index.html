@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -19,167 +18,166 @@ body{background:var(--bg);color:var(--text);font-family:'JetBrains Mono',monospa
 body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(77,166,255,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(77,166,255,0.03) 1px,transparent 1px);background-size:32px 32px;pointer-events:none;z-index:0}
 
 /* ── Header ── */
-header{flex-shrink:0;display:flex;align-items:center;justify-content:space-between;padding:10px 16px;border-bottom:1px solid var(–border);background:var(–bg2);position:relative;z-index:10}
-.logo{font-family:‘Syne’,sans-serif;font-weight:800;font-size:1.1rem;color:var(–blue);text-shadow:0 0 20px rgba(77,166,255,0.5);letter-spacing:0.1em}
-.logo span{color:var(–amber)}
-.hdr-right{display:flex;align-items:center;gap:12px;font-size:0.65rem;color:var(–dim)}
-.pulse{width:7px;height:7px;border-radius:50%;background:var(–green);box-shadow:0 0 8px var(–green);animation:pulse 2s infinite;display:inline-block;margin-right:5px}
+header{flex-shrink:0;display:flex;align-items:center;justify-content:space-between;padding:10px 16px;border-bottom:1px solid var(--border);background:var(--bg2);position:relative;z-index:10}
+.logo{font-family:'Syne',sans-serif;font-weight:800;font-size:1.1rem;color:var(--blue);text-shadow:0 0 20px rgba(77,166,255,0.5);letter-spacing:0.1em}
+.logo span{color:var(--amber)}
+.hdr-right{display:flex;align-items:center;gap:12px;font-size:0.65rem;color:var(--dim)}
+.pulse{width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 8px var(--green);animation:pulse 2s infinite;display:inline-block;margin-right:5px}
 @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.3;transform:scale(0.8)}}
-#clock{color:var(–text)}
-#src-badge{font-size:0.6rem;padding:2px 8px;border:1px solid var(–border);border-radius:2px;color:var(–dim)}
-#src-badge.live{border-color:var(–green);color:var(–green)}
+#clock{color:var(--text)}
+#src-badge{font-size:0.6rem;padding:2px 8px;border:1px solid var(--border);border-radius:2px;color:var(--dim)}
+#src-badge.live{border-color:var(--green);color:var(--green)}
 
 /* ── Main layout: 3 columns ── */
 .main{flex:1;display:grid;grid-template-columns:320px 1fr 380px;min-height:0;position:relative;z-index:1}
 
 /* ── Col 1: Aircraft list ── */
-.col-list{border-right:1px solid var(–border);display:flex;flex-direction:column;overflow:hidden;background:var(–bg2)}
-.col-list-head{padding:10px 14px;border-bottom:1px solid var(–border);flex-shrink:0}
+.col-list{border-right:1px solid var(--border);display:flex;flex-direction:column;overflow:hidden;background:var(--bg2)}
+.col-list-head{padding:10px 14px;border-bottom:1px solid var(--border);flex-shrink:0}
 .search-row{display:flex;gap:8px;margin-top:8px}
-.search-row input{flex:1;background:var(–bg3);border:1px solid var(–border);border-radius:3px;color:var(–text);font-family:‘JetBrains Mono’,monospace;font-size:0.8rem;padding:7px 10px;outline:none}
-.search-row input:focus{border-color:var(–blue)}
+.search-row input{flex:1;background:var(--bg3);border:1px solid var(--border);border-radius:3px;color:var(--text);font-family:'JetBrains Mono',monospace;font-size:0.8rem;padding:7px 10px;outline:none}
+.search-row input:focus{border-color:var(--blue)}
 .filter-row{display:flex;gap:5px;margin-top:8px;flex-wrap:wrap}
-.ftag{background:none;border:1px solid var(–border);color:var(–dim);font-family:‘JetBrains Mono’,monospace;font-size:0.6rem;padding:4px 9px;cursor:pointer;border-radius:2px;transition:all 0.15s}
-.ftag.active,.ftag:hover{border-color:var(–blue);color:var(–blue);background:rgba(77,166,255,0.08)}
+.ftag{background:none;border:1px solid var(--border);color:var(--amber);font-family:'JetBrains Mono',monospace;font-size:0.6rem;padding:4px 9px;cursor:pointer;border-radius:2px;transition:all 0.15s}
+.ftag.active,.ftag:hover{border-color:var(--amber);color:var(--amber);background:rgba(255,193,66,0.1)}
 .ac-list{flex:1;overflow-y:auto;padding:8px}
 .ac-list::-webkit-scrollbar{width:3px}
-.ac-list::-webkit-scrollbar-thumb{background:var(–border);border-radius:2px}
+.ac-list::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px}
 
 /* Aircraft card */
-.ac-card{background:var(–bg3);border:1px solid var(–border);border-radius:4px;padding:11px 12px;margin-bottom:7px;cursor:pointer;transition:all 0.15s;position:relative;overflow:hidden}
-.ac-card::before{content:’’;position:absolute;left:0;top:0;bottom:0;width:3px;background:var(–border);transition:background 0.15s}
-.ac-card:hover,.ac-card.sel{border-color:var(–blue);box-shadow:0 0 10px var(–glow)}
-.ac-card:hover::before,.ac-card.sel::before{background:var(–blue)}
+.ac-card{background:var(--bg3);border:1px solid var(--border);border-radius:4px;padding:11px 12px;margin-bottom:7px;cursor:pointer;transition:all 0.15s;position:relative;overflow:hidden}
+.ac-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--border);transition:background 0.15s}
+.ac-card:hover,.ac-card.sel{border-color:var(--blue);box-shadow:0 0 10px var(--glow)}
+.ac-card:hover::before,.ac-card.sel::before{background:var(--blue)}
 .ac-card.sel{background:rgba(77,166,255,0.07)}
 .card-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px}
-.cs{font-family:‘Syne’,sans-serif;font-weight:700;font-size:0.95rem;color:var(–blue);text-shadow:0 0 8px rgba(77,166,255,0.3)}
-.icao-reg{font-size:0.62rem;color:var(–dim);margin-top:1px}
+.cs{font-family:'Syne',sans-serif;font-weight:700;font-size:0.95rem;color:var(--blue);text-shadow:0 0 8px rgba(77,166,255,0.3)}
+.icao-reg{font-size:0.62rem;color:var(--dim);margin-top:1px}
 .card-right{text-align:right}
-.ac-type-lbl{font-size:0.62rem;color:var(–amber);margin-bottom:3px}
+.ac-type-lbl{font-size:0.62rem;color:var(--amber);margin-bottom:3px}
 .pb{display:inline-block;padding:2px 7px;border-radius:2px;font-size:0.55rem;letter-spacing:0.08em;font-weight:700}
-.pb-gnd{background:rgba(180,200,255,0.08);color:var(–dim);border:1px solid var(–border)}
-.pb-dep{background:rgba(255,193,66,0.1);color:var(–amber);border:1px solid rgba(255,193,66,0.3)}
-.pb-crz{background:rgba(77,166,255,0.1);color:var(–blue);border:1px solid rgba(77,166,255,0.3)}
-.pb-app{background:rgba(255,77,106,0.1);color:var(–red);border:1px solid rgba(255,77,106,0.3)}
+.pb-gnd{background:rgba(180,200,255,0.08);color:var(--dim);border:1px solid var(--border)}
+.pb-dep{background:rgba(255,193,66,0.1);color:var(--amber);border:1px solid rgba(255,193,66,0.3)}
+.pb-crz{background:rgba(77,166,255,0.1);color:var(--blue);border:1px solid rgba(77,166,255,0.3)}
+.pb-app{background:rgba(255,77,106,0.1);color:var(--red);border:1px solid rgba(255,77,106,0.3)}
 .card-data{display:grid;grid-template-columns:1fr 1fr 1fr;gap:4px;font-size:0.68rem}
-.card-data label{color:var(–dim);font-size:0.58rem;display:block}
+.card-data label{color:var(--dim);font-size:0.58rem;display:block}
 
 /* Loading / info */
-.loading{display:flex;align-items:center;gap:8px;color:var(–dim);font-size:0.75rem;padding:16px;justify-content:center}
-.spinner{width:14px;height:14px;border:2px solid var(–border);border-top-color:var(–blue);border-radius:50%;animation:spin 0.8s linear infinite}
+.loading{display:flex;align-items:center;gap:8px;color:var(--dim);font-size:0.75rem;padding:16px;justify-content:center}
+.spinner{width:14px;height:14px;border:2px solid var(--border);border-top-color:var(--blue);border-radius:50%;animation:spin 0.8s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
 .info-box{background:rgba(255,193,66,0.05);border:1px solid rgba(255,193,66,0.2);border-radius:4px;padding:10px 12px;font-size:0.67rem;color:rgba(255,193,66,0.8);line-height:1.6;margin:8px}
-.info-box strong{color:var(–amber);display:block;margin-bottom:3px;font-size:0.6rem;letter-spacing:0.1em}
+.info-box strong{color:var(--amber);display:block;margin-bottom:3px;font-size:0.6rem;letter-spacing:0.1em}
 
 /* ── Col 2: Map ── */
 .col-map{position:relative;overflow:hidden}
-#map{width:100%;height:100%;background:var(–bg)}
-.map-badge{position:absolute;top:10px;left:50%;transform:translateX(-50%);z-index:999;background:rgba(9,16,30,0.88);border:1px solid var(–border);border-radius:3px;padding:3px 12px;font-size:0.58rem;color:var(–blue);letter-spacing:0.14em;pointer-events:none;white-space:nowrap;backdrop-filter:blur(4px)}
+#map{width:100%;height:100%;background:var(--bg)}
+.map-badge{position:absolute;top:10px;left:50%;transform:translateX(-50%);z-index:999;background:rgba(9,16,30,0.88);border:1px solid var(--border);border-radius:3px;padding:3px 12px;font-size:0.58rem;color:var(--blue);letter-spacing:0.14em;pointer-events:none;white-space:nowrap;backdrop-filter:blur(4px)}
 .leaflet-container{background:#0d1220!important}
 .leaflet-tile{filter:brightness(0.28) saturate(0.2) hue-rotate(195deg)}
-.leaflet-control-zoom a{background:#0f1729!important;color:var(–blue)!important;border-color:var(–border)!important}
-.leaflet-control-attribution{background:rgba(9,16,30,0.7)!important;color:var(–dim)!important;font-size:0.5rem!important}
-.leaflet-popup-content-wrapper{background:#0f1729;border:1px solid var(–border);border-radius:4px;color:var(–text);box-shadow:0 0 16px var(–glow)}
+.leaflet-control-zoom a{background:#0f1729!important;color:var(--blue)!important;border-color:var(--border)!important}
+.leaflet-control-attribution{background:rgba(9,16,30,0.7)!important;color:var(--dim)!important;font-size:0.5rem!important}
+.leaflet-popup-content-wrapper{background:#0f1729;border:1px solid var(--border);border-radius:4px;color:var(--text);box-shadow:0 0 16px var(--glow)}
 .leaflet-popup-tip{background:#0f1729}
-.leaflet-popup-content{font-family:‘JetBrains Mono’,monospace;font-size:0.72rem;line-height:1.6;margin:10px 13px}
-.pop-cs{font-family:‘Syne’,sans-serif;font-size:0.9rem;color:var(–blue);margin-bottom:3px}
+.leaflet-popup-content{font-family:'JetBrains Mono',monospace;font-size:0.72rem;line-height:1.6;margin:10px 13px}
+.pop-cs{font-family:'Syne',sans-serif;font-size:0.9rem;color:var(--blue);margin-bottom:3px}
 
 /* ── Col 3: Frequency panel ── */
-.col-freq{border-left:1px solid var(–border);display:flex;flex-direction:column;overflow:hidden;background:var(–bg2)}
-.col-freq-head{padding:10px 14px;border-bottom:1px solid var(–border);flex-shrink:0;font-family:‘Syne’,sans-serif;font-size:0.65rem;color:var(–blue);letter-spacing:0.15em;display:flex;align-items:center;gap:8px}
+.col-freq{border-left:1px solid var(--border);display:flex;flex-direction:column;overflow:hidden;background:var(--bg2)}
+.col-freq-head{padding:10px 14px;border-bottom:1px solid var(--border);flex-shrink:0;font-family:'Syne',sans-serif;font-size:0.65rem;color:var(--blue);letter-spacing:0.15em;display:flex;align-items:center;gap:8px}
 .col-freq-body{flex:1;overflow-y:auto;padding:12px}
 .col-freq-body::-webkit-scrollbar{width:3px}
-.col-freq-body::-webkit-scrollbar-thumb{background:var(–border);border-radius:2px}
+.col-freq-body::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px}
 
 /* Empty state */
-.empty{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;gap:14px;color:var(–dim);text-align:center;padding:20px}
-.radar-ring{width:90px;height:90px;border:1px solid var(–border);border-radius:50%;position:relative;display:flex;align-items:center;justify-content:center}
-.radar-ring::before{content:’’;position:absolute;width:60px;height:60px;border:1px solid rgba(77,166,255,0.1);border-radius:50%}
-.radar-ring::after{content:’’;position:absolute;width:30px;height:30px;border:1px solid rgba(77,166,255,0.06);border-radius:50%}
-.radar-sweep{position:absolute;width:50%;height:1px;background:linear-gradient(90deg,transparent,var(–blue));transform-origin:right center;right:50%;top:50%;animation:sweep 3s linear infinite}
+.empty{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;gap:14px;color:var(--dim);text-align:center;padding:20px}
+.radar-ring{width:90px;height:90px;border:1px solid var(--border);border-radius:50%;position:relative;display:flex;align-items:center;justify-content:center}
+.radar-ring::before{content:'';position:absolute;width:60px;height:60px;border:1px solid rgba(77,166,255,0.1);border-radius:50%}
+.radar-ring::after{content:'';position:absolute;width:30px;height:30px;border:1px solid rgba(77,166,255,0.06);border-radius:50%}
+.radar-sweep{position:absolute;width:50%;height:1px;background:linear-gradient(90deg,transparent,var(--blue));transform-origin:right center;right:50%;top:50%;animation:sweep 3s linear infinite}
 @keyframes sweep{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
 
 /* Aircraft summary in freq panel */
-.ac-summary{background:rgba(77,166,255,0.05);border:1px solid var(–blue);border-radius:6px;padding:12px 14px;margin-bottom:12px;box-shadow:0 0 16px var(–glow)}
-.ac-summary-name{font-family:‘Syne’,sans-serif;font-weight:800;font-size:1.2rem;color:var(–blue);text-shadow:0 0 14px rgba(77,166,255,0.4);margin-bottom:5px}
-.ac-meta{font-size:0.66rem;color:var(–dim);line-height:1.8}
-.ac-meta span{color:var(–text)}
+.ac-summary{background:rgba(77,166,255,0.05);border:1px solid var(--blue);border-radius:6px;padding:12px 14px;margin-bottom:12px;box-shadow:0 0 16px var(--glow)}
+.ac-summary-name{font-family:'Syne',sans-serif;font-weight:800;font-size:1.2rem;color:var(--blue);text-shadow:0 0 14px rgba(77,166,255,0.4);margin-bottom:5px}
+.ac-meta{font-size:0.66rem;color:var(--dim);line-height:1.8}
+.ac-meta span{color:var(--text)}
 .stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-bottom:12px}
-.stat{background:var(–bg3);border:1px solid var(–border);border-radius:3px;padding:7px 10px}
-.stat label{font-size:0.55rem;color:var(–dim);letter-spacing:0.12em;display:block;margin-bottom:3px;text-transform:uppercase}
-.stat .v{font-family:‘Syne’,sans-serif;font-size:0.92rem;color:var(–text)}
-.stat .v.hi{color:var(–blue)}
+.stat{background:var(--bg3);border:1px solid var(--border);border-radius:3px;padding:7px 10px}
+.stat label{font-size:0.55rem;color:var(--dim);letter-spacing:0.12em;display:block;margin-bottom:3px;text-transform:uppercase}
+.stat .v{font-family:'Syne',sans-serif;font-size:0.92rem;color:var(--text)}
+.stat .v.hi{color:var(--blue)}
 
 /* Section label */
-.sec-lbl{font-size:0.58rem;color:var(–blue);letter-spacing:0.18em;text-transform:uppercase;margin-bottom:8px;margin-top:4px;display:flex;align-items:center;gap:8px}
-.sec-lbl::after{content:’’;flex:1;height:1px;background:var(–border)}
+.sec-lbl{font-size:0.58rem;color:var(--blue);letter-spacing:0.18em;text-transform:uppercase;margin-bottom:8px;margin-top:4px;display:flex;align-items:center;gap:8px}
+.sec-lbl::after{content:'';flex:1;height:1px;background:var(--border)}
 
 /* Reasoning */
-.reasoning{background:rgba(77,166,255,0.03);border:1px solid rgba(77,166,255,0.12);border-radius:4px;padding:10px 12px;margin-bottom:12px;font-size:0.67rem;color:var(–dim);line-height:1.7}
-.reasoning strong{color:var(–blue);font-size:0.57rem;letter-spacing:0.14em;display:block;margin-bottom:4px}
+.reasoning{background:rgba(77,166,255,0.03);border:1px solid rgba(77,166,255,0.12);border-radius:4px;padding:10px 12px;margin-bottom:12px;font-size:0.67rem;color:var(--dim);line-height:1.7}
+.reasoning strong{color:var(--blue);font-size:0.57rem;letter-spacing:0.14em;display:block;margin-bottom:4px}
 
 /* Frequency card badges — still used by typeBadge() */
 .type-badge{font-size:0.52rem;padding:2px 7px;border-radius:2px;letter-spacing:0.09em}
-.tb-atc{background:rgba(77,166,255,0.1);color:var(–blue);border:1px solid rgba(77,166,255,0.3)}
-.tb-app{background:rgba(255,77,106,0.1);color:var(–red);border:1px solid rgba(255,77,106,0.3)}
-.tb-gnd{background:rgba(255,193,66,0.1);color:var(–amber);border:1px solid rgba(255,193,66,0.3)}
-.tb-guard{background:rgba(255,77,106,0.18);color:var(–red);border:1px solid var(–red)}
-.tb-vol{background:rgba(61,255,160,0.08);color:var(–green);border:1px solid rgba(61,255,160,0.3)}
-.tb-air{background:rgba(180,200,255,0.08);color:var(–dim);border:1px solid var(–border)}
-.tb-mil{background:rgba(255,193,66,0.12);color:var(–amber);border:1px solid rgba(255,193,66,0.4)}
-.copy-btn{background:none;border:1px solid var(–border);color:var(–dim);font-family:‘JetBrains Mono’,monospace;font-size:0.58rem;padding:3px 9px;border-radius:2px;cursor:pointer;margin-top:7px;transition:all 0.15s}
-.copy-btn:hover{border-color:var(–blue);color:var(–blue)}
-.copy-btn.ok{border-color:var(–green);color:var(–green)}
+.tb-atc{background:rgba(77,166,255,0.1);color:var(--blue);border:1px solid rgba(77,166,255,0.3)}
+.tb-app{background:rgba(255,77,106,0.1);color:var(--red);border:1px solid rgba(255,77,106,0.3)}
+.tb-gnd{background:rgba(255,193,66,0.1);color:var(--amber);border:1px solid rgba(255,193,66,0.3)}
+.tb-guard{background:rgba(255,77,106,0.18);color:var(--red);border:1px solid var(--red)}
+.tb-vol{background:rgba(61,255,160,0.08);color:var(--green);border:1px solid rgba(61,255,160,0.3)}
+.tb-air{background:rgba(180,200,255,0.08);color:var(--dim);border:1px solid var(--border)}
+.tb-mil{background:rgba(255,193,66,0.12);color:var(--amber);border:1px solid rgba(255,193,66,0.4)}
+.copy-btn{background:none;border:1px solid var(--border);color:var(--dim);font-family:'JetBrains Mono',monospace;font-size:0.58rem;padding:3px 9px;border-radius:2px;cursor:pointer;margin-top:7px;transition:all 0.15s}
+.copy-btn:hover{border-color:var(--blue);color:var(--blue)}
+.copy-btn.ok{border-color:var(--green);color:var(--green)}
 
 /* Disclaimer */
 .disc{background:rgba(255,193,66,0.04);border:1px solid rgba(255,193,66,0.18);border-radius:4px;padding:10px 12px;font-size:0.63rem;color:rgba(255,193,66,0.7);line-height:1.6;margin-top:4px;margin-bottom:16px}
-.disc strong{color:var(–amber);font-size:0.57rem;letter-spacing:0.1em;display:block;margin-bottom:2px}
-.disc a{color:var(–amber)}
+.disc strong{color:var(--amber);font-size:0.57rem;letter-spacing:0.1em;display:block;margin-bottom:2px}
+.disc a{color:var(--amber)}
 
 /* Mobile responsive */
 @media(max-width:900px){
-.main{grid-template-columns:1fr;grid-template-rows:auto 300px 1fr}
-.col-list{max-height:220px}
-.col-map{height:300px}
+  .main{grid-template-columns:1fr;grid-template-rows:auto 300px 1fr}
+  .col-list{max-height:220px}
+  .col-map{height:300px}
 }
 
 /* ── Documentation modal ── */
 .modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.82);z-index:9999;backdrop-filter:blur(4px)}
 .modal-overlay.open{display:flex;align-items:flex-start;justify-content:center;padding:20px;overflow-y:auto}
-.modal{background:var(–bg2);border:1px solid var(–border);border-radius:10px;max-width:680px;width:100%;box-shadow:0 0 40px rgba(77,166,255,0.15);animation:slideIn 0.2s ease}
+.modal{background:var(--bg2);border:1px solid var(--border);border-radius:10px;max-width:680px;width:100%;box-shadow:0 0 40px rgba(77,166,255,0.15);animation:slideIn 0.2s ease}
 @keyframes slideIn{from{transform:translateY(-16px);opacity:0}to{transform:translateY(0);opacity:1}}
-.modal-hdr{display:flex;justify-content:space-between;align-items:center;padding:18px 22px;border-bottom:1px solid var(–border)}
-.modal-hdr h1{font-family:‘Syne’,sans-serif;font-size:1.1rem;color:var(–blue);letter-spacing:0.1em}
-.modal-close{background:none;border:1px solid var(–border);color:var(–dim);font-family:‘JetBrains Mono’,monospace;font-size:0.7rem;padding:5px 12px;border-radius:3px;cursor:pointer;transition:all 0.15s}
-.modal-close:hover{border-color:var(–red);color:var(–red)}
+.modal-hdr{display:flex;justify-content:space-between;align-items:center;padding:18px 22px;border-bottom:1px solid var(--border)}
+.modal-hdr h1{font-family:'Syne',sans-serif;font-size:1.1rem;color:var(--blue);letter-spacing:0.1em}
+.modal-close{background:none;border:1px solid var(--border);color:var(--dim);font-family:'JetBrains Mono',monospace;font-size:0.7rem;padding:5px 12px;border-radius:3px;cursor:pointer;transition:all 0.15s}
+.modal-close:hover{border-color:var(--red);color:var(--red)}
 .modal-body{padding:20px 22px;overflow-y:auto;max-height:75vh}
 .modal-body::-webkit-scrollbar{width:3px}
-.modal-body::-webkit-scrollbar-thumb{background:var(–border)}
+.modal-body::-webkit-scrollbar-thumb{background:var(--border)}
 .doc-section{margin-bottom:22px}
-.doc-section h2{font-family:‘Syne’,sans-serif;font-size:0.75rem;color:var(–blue);letter-spacing:0.18em;text-transform:uppercase;margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid var(–border)}
-.doc-section p,.doc-section li{font-size:0.75rem;color:var(–dim);line-height:1.8;margin-bottom:6px}
+.doc-section h2{font-family:'Syne',sans-serif;font-size:0.75rem;color:var(--blue);letter-spacing:0.18em;text-transform:uppercase;margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid var(--border)}
+.doc-section p,.doc-section li{font-size:0.75rem;color:var(--dim);line-height:1.8;margin-bottom:6px}
 .doc-section li{margin-left:14px;list-style:none;position:relative;padding-left:14px}
-.doc-section li::before{content:’›’;position:absolute;left:0;color:var(–blue)}
-.doc-section strong{color:var(–text)}
+.doc-section li::before{content:'›';position:absolute;left:0;color:var(--blue)}
+.doc-section strong{color:var(--text)}
 .doc-section .tag{display:inline-block;padding:1px 7px;border-radius:2px;font-size:0.62rem;margin:1px;vertical-align:middle}
-.tag-atc{background:rgba(77,166,255,0.12);color:var(–blue);border:1px solid rgba(77,166,255,0.3)}
-.tag-app{background:rgba(255,77,106,0.12);color:var(–red);border:1px solid rgba(255,77,106,0.3)}
-.tag-gnd{background:rgba(255,193,66,0.12);color:var(–amber);border:1px solid rgba(255,193,66,0.3)}
-.tag-guard{background:rgba(255,77,106,0.2);color:var(–red);border:1px solid var(–red)}
-.tag-vol{background:rgba(61,255,160,0.08);color:var(–green);border:1px solid rgba(61,255,160,0.3)}
-.tag-crz{background:rgba(77,166,255,0.1);color:var(–blue);border:1px solid rgba(77,166,255,0.3)}
-.tag-dep{background:rgba(255,193,66,0.1);color:var(–amber);border:1px solid rgba(255,193,66,0.3)}
-.tag-app2{background:rgba(255,77,106,0.1);color:var(–red);border:1px solid rgba(255,77,106,0.3)}
-.tag-gnd2{background:rgba(180,200,255,0.08);color:var(–dim);border:1px solid var(–border)}
-.doc-tip{background:rgba(77,166,255,0.04);border-left:3px solid var(–blue);padding:8px 12px;border-radius:0 4px 4px 0;margin:8px 0;font-size:0.72rem;color:var(–dim);line-height:1.7}
-.doc-tip strong{color:var(–blue)}
-.help-btn{background:none;border:1px solid var(–border);color:var(–dim);font-family:‘JetBrains Mono’,monospace;font-size:0.62rem;padding:4px 10px;border-radius:3px;cursor:pointer;transition:all 0.15s;letter-spacing:0.05em}
-.help-btn:hover{border-color:var(–blue);color:var(–blue)}
+.tag-atc{background:rgba(77,166,255,0.12);color:var(--blue);border:1px solid rgba(77,166,255,0.3)}
+.tag-app{background:rgba(255,77,106,0.12);color:var(--red);border:1px solid rgba(255,77,106,0.3)}
+.tag-gnd{background:rgba(255,193,66,0.12);color:var(--amber);border:1px solid rgba(255,193,66,0.3)}
+.tag-guard{background:rgba(255,77,106,0.2);color:var(--red);border:1px solid var(--red)}
+.tag-vol{background:rgba(61,255,160,0.08);color:var(--green);border:1px solid rgba(61,255,160,0.3)}
+.tag-crz{background:rgba(77,166,255,0.1);color:var(--blue);border:1px solid rgba(77,166,255,0.3)}
+.tag-dep{background:rgba(255,193,66,0.1);color:var(--amber);border:1px solid rgba(255,193,66,0.3)}
+.tag-app2{background:rgba(255,77,106,0.1);color:var(--red);border:1px solid rgba(255,77,106,0.3)}
+.tag-gnd2{background:rgba(180,200,255,0.08);color:var(--dim);border:1px solid var(--border)}
+.doc-tip{background:rgba(77,166,255,0.04);border-left:3px solid var(--blue);padding:8px 12px;border-radius:0 4px 4px 0;margin:8px 0;font-size:0.72rem;color:var(--dim);line-height:1.7}
+.doc-tip strong{color:var(--blue)}
+.help-btn{background:none;border:1px solid rgba(255,193,66,0.4);color:var(--amber);font-family:'JetBrains Mono',monospace;font-size:0.62rem;padding:4px 10px;border-radius:3px;cursor:pointer;transition:all 0.15s;letter-spacing:0.05em}
+.help-btn:hover{border-color:var(--amber);color:#fff;background:rgba(255,193,66,0.12)}
 
 /* Aircraft map label */
-.ac-map-label{font-family:‘JetBrains Mono’,monospace;font-size:9px;color:#fff;white-space:nowrap;pointer-events:none;text-shadow:0 0 3px #000,0 0 6px #000;margin-top:2px;text-align:center}
+.ac-map-label{font-family:'JetBrains Mono',monospace;font-size:9px;color:#fff;white-space:nowrap;pointer-events:none;text-shadow:0 0 3px #000,0 0 6px #000;margin-top:2px;text-align:center}
 </style>
-
 </head>
 <body>
 
@@ -197,7 +195,6 @@ header{flex-shrink:0;display:flex;align-items:center;justify-content:space-betwe
 </header>
 
 <!-- ── Location modal ── -->
-
 <div class="modal-overlay" id="loc-modal" onclick="if(event.target===this)this.classList.remove('open')">
   <div class="modal" style="max-width:420px">
     <div class="modal-hdr">
@@ -211,50 +208,46 @@ header{flex-shrink:0;display:flex;align-items:center;justify-content:space-betwe
           Loading…
         </div>
 
-```
-    <button onclick="useGPS()" id="gps-btn" style="width:100%;background:var(--blue);border:none;border-radius:4px;color:var(--bg);font-family:'Syne',sans-serif;font-weight:800;font-size:0.8rem;padding:10px;cursor:pointer;letter-spacing:0.1em;margin-bottom:10px">
-      &#8982; USE MY CURRENT GPS POSITION
-    </button>
-    <div id="gps-status" style="font-size:0.7rem;color:var(--dim);margin-bottom:16px;min-height:1.2em"></div>
+        <button onclick="useGPS()" id="gps-btn" style="width:100%;background:var(--blue);border:none;border-radius:4px;color:var(--bg);font-family:'Syne',sans-serif;font-weight:800;font-size:0.8rem;padding:10px;cursor:pointer;letter-spacing:0.1em;margin-bottom:10px">
+          &#8982; USE MY CURRENT GPS POSITION
+        </button>
+        <div id="gps-status" style="font-size:0.7rem;color:var(--dim);margin-bottom:16px;min-height:1.2em"></div>
 
-    <h2>Or Enter Manually</h2>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px">
-      <div>
-        <div style="font-size:0.6rem;color:var(--dim);margin-bottom:4px;letter-spacing:0.1em">LATITUDE</div>
-        <input type="number" id="loc-lat" step="0.0001" placeholder="e.g. 53.7600"
-          style="width:100%;background:var(--bg3);border:1px solid var(--border);border-radius:4px;color:var(--text);font-family:'JetBrains Mono',monospace;font-size:0.8rem;padding:8px 10px;outline:none;box-sizing:border-box">
-      </div>
-      <div>
-        <div style="font-size:0.6rem;color:var(--dim);margin-bottom:4px;letter-spacing:0.1em">LONGITUDE</div>
-        <input type="number" id="loc-lon" step="0.0001" placeholder="e.g. -1.5942"
-          style="width:100%;background:var(--bg3);border:1px solid var(--border);border-radius:4px;color:var(--text);font-family:'JetBrains Mono',monospace;font-size:0.8rem;padding:8px 10px;outline:none;box-sizing:border-box">
+        <h2>Or Enter Manually</h2>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px">
+          <div>
+            <div style="font-size:0.6rem;color:var(--dim);margin-bottom:4px;letter-spacing:0.1em">LATITUDE</div>
+            <input type="number" id="loc-lat" step="0.0001" placeholder="e.g. 53.7600"
+              style="width:100%;background:var(--bg3);border:1px solid var(--border);border-radius:4px;color:var(--text);font-family:'JetBrains Mono',monospace;font-size:0.8rem;padding:8px 10px;outline:none;box-sizing:border-box">
+          </div>
+          <div>
+            <div style="font-size:0.6rem;color:var(--dim);margin-bottom:4px;letter-spacing:0.1em">LONGITUDE</div>
+            <input type="number" id="loc-lon" step="0.0001" placeholder="e.g. -1.5942"
+              style="width:100%;background:var(--bg3);border:1px solid var(--border);border-radius:4px;color:var(--text);font-family:'JetBrains Mono',monospace;font-size:0.8rem;padding:8px 10px;outline:none;box-sizing:border-box">
+          </div>
+        </div>
+        <input type="text" id="loc-name" placeholder="Location name (e.g. My House)"
+          style="width:100%;background:var(--bg3);border:1px solid var(--border);border-radius:4px;color:var(--text);font-family:'JetBrains Mono',monospace;font-size:0.8rem;padding:8px 10px;outline:none;margin-bottom:10px;box-sizing:border-box">
+        <button onclick="saveManualLocation()"
+          style="width:100%;background:rgba(77,166,255,0.12);border:1px solid rgba(77,166,255,0.4);border-radius:4px;color:var(--blue);font-family:'Syne',sans-serif;font-weight:800;font-size:0.8rem;padding:10px;cursor:pointer;letter-spacing:0.1em;margin-bottom:10px">
+          SAVE MANUAL POSITION
+        </button>
+
+        <button onclick="resetHomeLocation()"
+          style="width:100%;background:none;border:1px solid var(--border);border-radius:4px;color:var(--dim);font-family:'JetBrains Mono',monospace;font-size:0.7rem;padding:8px;cursor:pointer">
+          RESET TO DEFAULT (LEEDS BRADFORD)
+        </button>
+        <div id="loc-status" style="margin-top:8px;font-size:0.7rem;color:var(--dim)"></div>
+
+        <div class="doc-tip" style="margin-top:14px">
+          <strong>Note:</strong> Your position is stored locally on your device only. Changing home position re-centres the map, updates the 100-mile radius and refreshes live aircraft immediately.
+        </div>
       </div>
     </div>
-    <input type="text" id="loc-name" placeholder="Location name (e.g. My House)"
-      style="width:100%;background:var(--bg3);border:1px solid var(--border);border-radius:4px;color:var(--text);font-family:'JetBrains Mono',monospace;font-size:0.8rem;padding:8px 10px;outline:none;margin-bottom:10px;box-sizing:border-box">
-    <button onclick="saveManualLocation()"
-      style="width:100%;background:rgba(77,166,255,0.12);border:1px solid rgba(77,166,255,0.4);border-radius:4px;color:var(--blue);font-family:'Syne',sans-serif;font-weight:800;font-size:0.8rem;padding:10px;cursor:pointer;letter-spacing:0.1em;margin-bottom:10px">
-      SAVE MANUAL POSITION
-    </button>
-
-    <button onclick="resetHomeLocation()"
-      style="width:100%;background:none;border:1px solid var(--border);border-radius:4px;color:var(--dim);font-family:'JetBrains Mono',monospace;font-size:0.7rem;padding:8px;cursor:pointer">
-      RESET TO DEFAULT (LEEDS BRADFORD)
-    </button>
-    <div id="loc-status" style="margin-top:8px;font-size:0.7rem;color:var(--dim)"></div>
-
-    <div class="doc-tip" style="margin-top:14px">
-      <strong>Note:</strong> Your position is stored locally on your device only. Changing home position re-centres the map, updates the 100-mile radius and refreshes live aircraft immediately.
-    </div>
-  </div>
-</div>
-```
-
   </div>
 </div>
 
 <!-- ── API Key modal ── -->
-
 <div class="modal-overlay" id="key-modal" onclick="if(event.target===this)this.classList.remove('open')">
   <div class="modal" style="max-width:420px">
     <div class="modal-hdr">
@@ -276,7 +269,6 @@ header{flex-shrink:0;display:flex;align-items:center;justify-content:space-betwe
 </div>
 
 <!-- ── Documentation modal ── -->
-
 <div class="modal-overlay" id="docs-modal" onclick="if(event.target===this)this.classList.remove('open')">
   <div class="modal">
     <div class="modal-hdr">
@@ -285,197 +277,184 @@ header{flex-shrink:0;display:flex;align-items:center;justify-content:space-betwe
     </div>
     <div class="modal-body">
 
-```
-  <!-- OVERVIEW -->
-  <div class="doc-section">
-    <h2>What is SKYWATCH?</h2>
-    <p>SKYWATCH is a live aircraft tracking and ATC radio frequency advisor for the airband listener, student pilot and aviation enthusiast. It monitors all aircraft within <strong>100 miles of Leeds Bradford Airport</strong> and uses each aircraft's real-time position, altitude, heading, vertical rate and callsign to calculate the most likely VHF frequencies it is currently using — including the predicted next sector handoff frequency so you can monitor the transfer in real time.</p>
-    <p>The app covers civil en-route, approach, ground, military and FIR frequencies. It understands UK airspace structure including airways boundaries, TMAs, LARS units, London and Scottish Military sectors, and the FIR information service.</p>
-    <div class="doc-tip"><strong>Live data:</strong> Save this file and open it in Safari or Chrome on your phone to receive real aircraft data automatically. Inside Claude.ai the sandbox blocks outbound network requests, so demo aircraft are shown — but all frequency calculations work identically.</div>
-  </div>
+      <div class="doc-section">
+        <h2>What is SKYWATCH?</h2>
+        <p>SKYWATCH is a live aircraft tracking and ATC radio frequency advisor built for the airband listener, student pilot and aviation enthusiast. It monitors all aircraft within <strong>100 miles of your home position</strong> (default: Leeds Bradford Airport) and uses each aircraft's real-time position, altitude, heading, vertical rate and callsign to calculate the most likely VHF frequencies it is currently using — including the predicted next sector handoff frequency so you can monitor the transfer in real time.</p>
+        <p>The app covers civil en-route (Scottish Control and London Control), approach and departure radar, ground and delivery, military radar (London Military and Scottish Military), FIR information, LARS and Shanwick Oceanic transition frequencies. It understands the full UK airspace structure including airways boundaries, TMAs, Class G/E airspace, and the Scottish/London FIR boundaries.</p>
+        <div class="doc-tip"><strong>Live data:</strong> Save this file and open it in Safari or Chrome on your phone. Live aircraft load automatically from public ADS-B networks. Inside Claude.ai the sandbox blocks outbound network requests so demo aircraft are shown — but all frequency calculations work identically.</div>
+      </div>
 
-  <!-- SCREEN LAYOUT -->
-  <div class="doc-section">
-    <h2>Screen Layout</h2>
-    <ul>
-      <li><strong>Left column — Traffic List:</strong> All aircraft within 100 miles sorted nearest first. Search by callsign or ICAO hex code. Filter by flight phase using the ALL / GND / DEP / CRZ / APP buttons. Each card shows callsign, ICAO code, aircraft type, altitude, speed and distance.</li>
-      <li><strong>Centre — Live Map:</strong> Top-down aircraft silhouettes rotate to match actual heading. A fading trail shows the last 5 minutes of flight path. A dashed line ahead projects 3 minutes of travel at current speed. The selected aircraft is highlighted in white. Tap any aircraft to open its popup.</li>
-      <li><strong>Right column — Frequency Advisor:</strong> Select any aircraft to populate this panel. Shows the route bar, flight stats, the reasoning the engine applied, and all calculated frequencies ranked by confidence — including a highlighted NEXT SECTOR card for the predicted handoff frequency.</li>
-      <li><strong>Header:</strong> Live aircraft count, data source badge, UTC clock, <strong>? HELP</strong> (this guide) and <strong>API KEY</strong> for optional live route data.</li>
-    </ul>
-  </div>
+      <div class="doc-section">
+        <h2>Screen Layout</h2>
+        <ul>
+          <li><strong>Left — Traffic List:</strong> All aircraft within 100 miles, sorted nearest first. Search by callsign or ICAO hex. Filter by phase using ALL / GND / DEP / CRZ / APP buttons.</li>
+          <li><strong>Centre — Live Map:</strong> Top-down aircraft silhouettes rotate to match actual heading. A fading trail shows the last 5 minutes of flight path. A dashed line ahead projects 3 minutes of travel at current speed. Tap any aircraft to open its popup showing current and next frequencies at a glance.</li>
+          <li><strong>Right — Frequency Advisor:</strong> Select any aircraft to load the full analysis — route bar, flight stats, reasoning log, and all calculated frequencies ranked by confidence including the NEXT SECTOR handoff card.</li>
+          <li><strong>Header:</strong> Live aircraft count · data source badge · UTC clock · <strong>⌖ LOCATION</strong> (set home position) · <strong>⚙ API KEY</strong> (optional live route data) · <strong>? HELP</strong> (this guide).</li>
+        </ul>
+      </div>
 
-  <!-- MAP SYMBOLS -->
-  <div class="doc-section">
-    <h2>Map Symbols</h2>
-    <ul>
-      <li><strong>Aircraft icon colour</strong> shows flight phase: <span class="tag tag-crz">BLUE = CRUISE</span> <span class="tag tag-dep">AMBER = DEPARTURE</span> <span class="tag tag-app2">RED = APPROACH</span> <span class="tag tag-gnd2">GREY = GROUND</span></li>
-      <li><strong>Callsign label</strong> — displayed below each icon for quick identification without tapping.</li>
-      <li><strong>Fading trail</strong> — the solid line behind each aircraft traces its path over the last 5 minutes. The newest segment is brightest; older segments fade toward transparent. The trail builds up progressively across data refreshes, each roughly 45 seconds apart.</li>
-      <li><strong>Dashed vector ahead</strong> — projects the aircraft's current track and speed 3 minutes forward. Useful for seeing which waypoint, airway or airport it is tracking toward.</li>
-      <li><strong>White icon (larger)</strong> — the currently selected aircraft. Its trail and vector are rendered brighter to stand out.</li>
-      <li><strong>Amber dot</strong> — Leeds Bradford Airport (home position).</li>
-      <li><strong>Dashed blue circle</strong> — the 100 mile monitoring radius.</li>
-    </ul>
-  </div>
+      <div class="doc-section">
+        <h2>Home Location</h2>
+        <p>Tap <strong>⌖ LOCATION</strong> in the header to change the home position. This updates the map centre, the 100-mile radius circle, all aircraft distances, and re-fetches live traffic from the new position.</p>
+        <ul>
+          <li><strong>Use GPS:</strong> Taps the browser Geolocation API. On your phone it will ask for permission then acquire your position within seconds. Works in Safari and Chrome when the file is opened locally.</li>
+          <li><strong>Manual entry:</strong> Type any latitude and longitude. Useful for a fixed listening spot.</li>
+          <li><strong>Reset:</strong> Returns to the default Leeds Bradford (53.7600°N, 1.5942°W).</li>
+        </ul>
+        <div class="doc-tip">Your home position is stored in your browser's local storage and persists between sessions. It is never transmitted anywhere.</div>
+      </div>
 
-  <!-- ANALYSE BUTTON -->
-  <div class="doc-section">
-    <h2>The ANALYSE Button</h2>
-    <p>Tap any aircraft on the map to open its popup showing callsign, ICAO code, type, registration, flight level, speed and heading. The <strong>ANALYSE — GET ATC FREQUENCIES</strong> button then:</p>
-    <ul>
-      <li>Loads the aircraft into the right-hand frequency panel and zooms the map to it</li>
-      <li>Determines <strong>flight phase</strong> (Ground / Departure / Cruise / Approach) from altitude and vertical rate</li>
-      <li>Matches the aircraft's position against <strong>33 named UK ATC sectors</strong> (Scottish Control and London Control) to identify its current sector by name</li>
-      <li>Checks whether the aircraft falls within <strong>14 military sectors</strong> (London Military / Swanwick Mil and Scottish Military / Prestwick Mil) based on altitude and position — this applies to all aircraft, not just military types</li>
-      <li>Resolves the <strong>departure and destination airports</strong> using a three-tier system (see Route Resolution below)</li>
-      <li>Projects the aircraft's track <strong>12–22 minutes ahead</strong> to predict the next sector handoff frequency</li>
-      <li>Checks for <strong>TMA overflight</strong> — if the aircraft is within 40nm of a controlled airport, the local approach frequency is added</li>
-      <li>Inspects the <strong>squawk code</strong> — 7700 (emergency), 7600 (comms failure) and 7500 (hijack) are flagged prominently</li>
-      <li>Returns all calculated frequencies ranked by confidence with plain-English reasoning for each</li>
-    </ul>
-    <div class="doc-tip"><strong>You can also select aircraft</strong> by tapping a card in the left list, or tapping the icon directly on the map. ANALYSE is only needed when using the map popup.</div>
-  </div>
+      <div class="doc-section">
+        <h2>Map Symbols</h2>
+        <ul>
+          <li><strong>Aircraft icon colour — flight phase:</strong> <span class="tag tag-crz">BLUE = CRUISE</span> <span class="tag tag-dep">AMBER = DEPARTURE</span> <span class="tag tag-app2">RED = APPROACH</span> <span class="tag tag-gnd2">GREY = GROUND</span></li>
+          <li><strong>Callsign label</strong> — displayed below each icon for quick identification.</li>
+          <li><strong>Fading trail</strong> — the solid line behind each aircraft traces its path over the last 5 minutes. Newest segments are brightest; older segments fade. The trail builds progressively across data refreshes (~45 seconds each).</li>
+          <li><strong>Dashed vector ahead</strong> — projects the aircraft's current track 3 minutes forward at current speed.</li>
+          <li><strong>White icon (larger)</strong> — the currently selected aircraft. Its trail and vector are rendered brighter.</li>
+          <li><strong>Amber dot</strong> — your home position.</li>
+          <li><strong>Dashed blue circle</strong> — the 100-mile monitoring radius.</li>
+        </ul>
+      </div>
 
-  <!-- FLIGHT PHASES -->
-  <div class="doc-section">
-    <h2>Flight Phase Detection</h2>
-    <ul>
-      <li><span class="tag tag-gnd2">GND</span> — on the ground flag set, or altitude below 50ft</li>
-      <li><span class="tag tag-dep">DEP</span> — below 3,000ft climbing, or above 3,000ft with vertical rate above +2m/s</li>
-      <li><span class="tag tag-crz">CRZ</span> — above 15,000ft with near-zero vertical rate, or any level flight band</li>
-      <li><span class="tag tag-app2">APP</span> — below 3,000ft descending, or above 3,000ft with vertical rate below -2m/s</li>
-    </ul>
-    <p>Phase drives the entire frequency calculation — a departing aircraft gets Tower and Departure Radar frequencies, a cruise aircraft gets en-route sector and next-sector frequencies, an approaching aircraft gets Approach and Tower frequencies.</p>
-  </div>
+      <div class="doc-section">
+        <h2>Map Popup — Current &amp; Next Frequency</h2>
+        <p>Tap any aircraft on the map to open its popup. In addition to callsign, type, flight level, speed and phase, the popup shows two frequency cards calculated instantly:</p>
+        <ul>
+          <li><strong style="color:var(--blue)">CURRENT FREQUENCY</strong> — the highest-confidence working frequency above 75% for that aircraft at that moment. Shown in blue with sector name and confidence score.</li>
+          <li><strong style="color:var(--amber)">NEXT FREQUENCY</strong> — the predicted handoff sector, projected 12–35 minutes ahead along the aircraft's current track. Shown in amber. Only appears when a different sector is predicted ahead.</li>
+        </ul>
+        <p>Tap <strong>ANALYSE — GET ATC FREQUENCIES</strong> to load the full analysis in the right panel.</p>
+      </div>
 
-  <!-- FREQUENCY TYPES -->
-  <div class="doc-section">
-    <h2>Frequency Types</h2>
-    <ul>
-      <li><span class="tag tag-atc">ATC</span> — Civil en-route radar control. Scottish Control (Prestwick ATCC) covers Scotland and N.England. London Control (Swanwick LACC) covers England and Wales. Each is divided into named sectors with their own published frequencies.</li>
-      <li><span class="tag tag-app">APP</span> — Approach and Departure radar. Active within the Terminal Manoeuvring Area (TMA) of controlled airports, typically up to FL150. Also used for aircraft transiting another airport's TMA en route.</li>
-      <li><span class="tag tag-gnd">GND</span> — Ground Control and Clearance Delivery. Used at the airport surface for taxi, pushback and IFR clearance.</li>
-      <li><span class="tag tag-mil">MIL</span> — London Military (Swanwick Mil) and Scottish Military (Prestwick Mil) radar services, plus FIR information frequencies. Available to <strong>all aircraft</strong> — not just military — when operating outside controlled airways. See Military Sectors below.</li>
-      <li><span class="tag tag-guard">GUARD</span> — 121.500 MHz international distress and guard frequency. Always monitored by all ATC units and aircraft. Shown on every analysis.</li>
-      <li><span class="tag tag-vol">VOLMET</span> — Continuous weather broadcasts. UK VOLMET North 126.600 MHz covers Manchester, Glasgow, Edinburgh, Belfast and Aberdeen. UK VOLMET South 135.375 MHz covers London airports, Amsterdam, Brussels and Paris.</li>
-    </ul>
-  </div>
+      <div class="doc-section">
+        <h2>Flight Phase Detection</h2>
+        <ul>
+          <li><span class="tag tag-gnd2">GND</span> — on-ground flag set, or altitude below 50ft</li>
+          <li><span class="tag tag-dep">DEP</span> — below 3,000ft climbing, or above 3,000ft with vertical rate above +2m/s</li>
+          <li><span class="tag tag-crz">CRZ</span> — above 15,000ft with near-zero vertical rate, or any level flight band</li>
+          <li><span class="tag tag-app2">APP</span> — below 3,000ft descending, or above 3,000ft with vertical rate below -2m/s</li>
+        </ul>
+        <p>Phase is the primary input to the frequency engine — it determines whether Tower, Departure Radar, en-route sector, approach or ground frequencies are most relevant.</p>
+      </div>
 
-  <!-- NAMED SECTORS -->
-  <div class="doc-section">
-    <h2>Civil En-Route Sectors (33 total)</h2>
-    <p>The app matches aircraft against all 33 named UK ATC sectors. Frequencies are from verified published sources including UK AIP ENR 2.1, NATS frequency cards and RadioReference.</p>
-    <p><strong>Scottish Control (Prestwick ATCC) — low and mid sectors:</strong> Tay East 124.500, Tyne 134.775, Antrim 123.775, Galloway North 121.375, Galloway South 124.825, Talla North 130.975, Talla South 126.300, West Coast Low 127.275, Hebrides 133.675, Moray 134.850, Humber Low 121.325.</p>
-    <p><strong>Scottish Upper (FL245+):</strong> Deancross South 135.525, Deancross North 135.850, Montrose South 126.925, Montrose North 132.492, Central High 132.725, Rathlin East 125.675, Rathlin West 129.100, West Coast High 133.200.</p>
-    <p><strong>London Control (Swanwick LACC) — named sectors:</strong> NE Departures 118.825, SE Biggin 120.525, NW BNN/Bovington 121.275, North LOREL 129.275, SW Ockham 129.075, West WELIN 130.925, SW WILLO 133.175, Dover Low 134.900.</p>
-    <p><strong>London Upper (FL245+):</strong> East S02 127.425, Middle East S26 132.600, Middle West S25 132.167, South S24 134.458, Hurn East S19 135.050, Hurn West S20/21 129.425.</p>
-  </div>
+      <div class="doc-section">
+        <h2>Frequency Types</h2>
+        <ul>
+          <li><span class="tag tag-atc">ATC</span> — Civil en-route radar. Scottish Control (Prestwick ATCC) covers Scotland and N.England. London Control (Swanwick LACC) covers England and Wales. Each has named sectors with published frequencies. Also includes Shanwick Oceanic for westbound transatlantic traffic.</li>
+          <li><span class="tag tag-app">APP</span> — Approach and Departure radar. Active within the TMA of controlled airports, typically up to FL150. Also shown for aircraft transiting another airport's TMA en route.</li>
+          <li><span class="tag tag-gnd">GND</span> — Ground Control and Clearance Delivery. Used at the airport surface for taxi, pushback and IFR clearance.</li>
+          <li><span class="tag tag-mil">MIL</span> — London Military (Swanwick Mil) and Scottish Military (Prestwick Mil) radar, plus FIR information frequencies and LARS. Available to <strong>all aircraft</strong> — see Military Sectors section below.</li>
+          <li><span class="tag tag-vol">VOLMET</span> — Continuous weather broadcasts. UK VOLMET North 126.600 MHz (Manchester, Glasgow, Edinburgh, Belfast, Aberdeen). UK VOLMET South 135.375 MHz (London airports, Amsterdam, Brussels, Paris).</li>
+        </ul>
+      </div>
 
-  <!-- MILITARY SECTORS -->
-  <div class="doc-section">
-    <h2>Military Sectors — Who They Apply To</h2>
-    <p>London Military (Swanwick Mil) and Scottish Military (Prestwick Mil) provide radar services across the UK FIR. A common misconception is that these frequencies are only for military aircraft — <strong>they are not</strong>. Any aircraft may be talking to a military radar unit depending on where and how high it is flying:</p>
-    <ul>
-      <li><strong>Below FL075 (airways base):</strong> All aircraft are in Class G or Class E uncontrolled airspace. Civil airways do not exist below this level. London or Scottish Military radar service is available to every aircraft here — airliners, GA, military alike.</li>
-      <li><strong>In open FIR (more than 40nm from a controlled airport, below FL245):</strong> When no civil ATC unit has jurisdiction, London or Scottish Military fill the gap and provide radar information or deconfliction to any aircraft that calls them.</li>
-      <li><strong>Military callsigns and types:</strong> RRR (RAF), NAF (Royal Navy), RCH (USAF Air Mobility Command "Reach"), and recognised military aircraft types are flagged as definitely using military frequencies regardless of altitude.</li>
-      <li><strong>GA and VFR flights:</strong> Light aircraft and flights squawking 7000 (VFR Europe) below FL150 are almost always in uncontrolled airspace and likely talking to a LARS unit or London/Scottish Military.</li>
-    </ul>
-    <p><strong>London Military (Swanwick Mil) key VHF frequencies:</strong> Central/East/South 135.150, NW/West 127.450, Brize Radar LARS 124.275, London FIR Information 124.600 / 124.750.</p>
-    <p><strong>Scottish Military (Prestwick Mil) key VHF frequencies:</strong> North ICF 134.300, South ICF 135.925, East 124.050, West 127.275, Scottish FIR Information 119.875, Leeming LARS/Zone 133.375.</p>
-    <div class="doc-tip"><strong>The reasoning panel explains why</strong> a military frequency appears for any given aircraft — e.g. "FL060 — below airways base (FL075). ALL aircraft in Class G/E may be on London/Scottish Military for radar service."</div>
-  </div>
+      <div class="doc-section">
+        <h2>Civil En-Route Sectors (36 total)</h2>
+        <p>All frequencies are from verified UK AIP ENR 2.1, EGPH frequency cards, Transmission1 listener databases and RadioReference Swanwick Civil subcategory.</p>
+        <p><strong>Scottish Control — low/mid sectors (SFC–FL245):</strong> Tay East 124.500, Wallasey 128.055, Antrim 123.775, Galloway North 121.375, Galloway South 124.825, Talla North 130.975, Talla South 126.300, West Coast Low 127.275, Hebrides 133.675, Moray 134.850, Humber Low 121.325, Tyne 134.775.</p>
+        <p><strong>Scottish Upper (FL245+):</strong> Deancross South 135.525, Deancross North 135.850, Montrose South 126.925, Montrose North 132.492, Central High 132.725, Rathlin East 125.675, Rathlin West 129.100, West Coast High 133.200.</p>
+        <p><strong>London Control — low/mid sectors (SFC–FL245):</strong> NE Departures 118.825, SE Biggin 120.525, NW BNN 121.275, North LOREL 129.275, SW Ockham 129.075, West WELIN 130.925, SW WILLO 133.175, Dover Low 134.900.</p>
+        <p><strong>London Upper (FL245+):</strong> East S02 127.425, Middle East S26 132.600, Middle West S25 132.167, South S24 134.458, Hurn East S19 135.050, Hurn West S20/21 129.425.</p>
+        <p><strong>International:</strong> Maastricht UAC 132.450 (eastbound into Europe, FL245+), Shanwick Oceanic 123.950 (westbound transatlantic clearances from ~15°W).</p>
+        <div class="doc-tip"><strong>Sector selection:</strong> When a position falls within multiple overlapping sectors, a scoring engine uses geographic depth within the sector, altitude band, aircraft speed and heading-to-sector-centre to pick the most likely one. A heading of 315° (northwest) over Leeds at FL300 will correctly score Deancross South over London Upper Middle East, because Deancross South's centre lies ahead on that track.</div>
+      </div>
 
-  <!-- NEXT SECTOR -->
-  <div class="doc-section">
-    <h2>Next Sector Prediction</h2>
-    <p>When an aircraft is in cruise, the engine projects its position 12 and 22 minutes ahead at its current speed and heading, then checks which ATC sector boundary that projected position falls within. If it differs from the current sector, a <strong>NEXT SECTOR</strong> frequency card appears highlighted in amber.</p>
-    <p>This lets you tune to the handoff frequency in advance and listen for the transfer call. The card shows the sector name, frequency and estimated minutes until the aircraft reaches that boundary.</p>
-    <div class="doc-tip"><strong>Example:</strong> An aircraft on Scottish Control Talla South 126.300 heading south will show London Control North LOREL 129.275 as the next sector with an estimated transfer time.</div>
-  </div>
+      <div class="doc-section">
+        <h2>Next Sector Prediction</h2>
+        <p>When an aircraft is in cruise, the engine projects its position ahead along its current track at its current speed and checks which ATC sector boundary that position enters. The predicted handoff sector appears as an <strong>amber NEXT SECTOR card</strong> in the frequency panel, and as a <strong>NEXT FREQUENCY card</strong> in the map popup.</p>
+        <ul>
+          <li><strong>12 minutes ahead</strong> — checked first. Finds imminent handoffs.</li>
+          <li><strong>22 minutes ahead</strong> — checked if no change found at 12 min.</li>
+          <li><strong>35 minutes ahead</strong> — checked for FL245+ traffic only, to capture long-range transitions such as Scottish Control → Shanwick Oceanic for westbound transatlantic flights.</li>
+        </ul>
+        <div class="doc-tip"><strong>Example:</strong> AAL195 (London Heathrow → Phoenix) at FL300 over Leeds heading northwest will show Deancross South (135.525) as the current sector and Scottish Upper Central High (132.725) as the predicted next sector in ~12 minutes, then Rathlin East (125.675) on the Atlantic track, eventually transitioning to Shanwick Oceanic (123.950).</div>
+      </div>
 
-  <!-- ROUTE RESOLUTION -->
-  <div class="doc-section">
-    <h2>Route Resolution — Departure and Destination</h2>
-    <p>The route bar beneath the aircraft summary shows the departure and destination airports. This is resolved using a three-tier system in priority order:</p>
-    <ul>
-      <li><strong style="color:var(--green)">LIVE</strong> — Aviationstack API lookup using the flight's IATA number. Returns the actual filed departure and arrival airports with flight status. Requires a free API key (see API KEY button in the header).</li>
-      <li><strong style="color:var(--blue)">SCHEDULE DB</strong> — Built-in flight number range database covering 65 routes for major UK operators: British Airways (BAW/SHT), easyJet (EZY), Ryanair (RYR), Jet2 (EXS), Loganair (LOG), TUI (TOM), Lufthansa (DLH), KLM, Emirates (UAE), Air France (AFR), Norwegian (NAX), Wizz Air (WZZ), Scandinavian (SAS) and more. If the callsign and flight number match a known range, the route is identified without any API call.</li>
-      <li><strong style="color:var(--amber)">INFERRED</strong> — Last resort. Departure is inferred from position when the aircraft is on the ground or departing within 15nm of an airport. Destination uses heading alignment — only suggested if the track is within 20 degrees of an airport bearing, reducing false guesses from the previous wider 35-degree threshold.</li>
-    </ul>
-    <div class="doc-tip"><strong>No route shown?</strong> The aircraft may have an unrecognised callsign, be a private flight, or be a military aircraft without a scheduled route. Add an Aviationstack key for the best coverage.</div>
-  </div>
+      <div class="doc-section">
+        <h2>Military Sectors — Who They Apply To</h2>
+        <p>London Military (Swanwick Mil) and Scottish Military (Prestwick Mil) provide radar services across the UK FIR. These frequencies apply to <strong>all aircraft</strong>, not just military types:</p>
+        <ul>
+          <li><strong>Below FL075:</strong> All aircraft are in Class G or Class E uncontrolled airspace. Airways do not exist here. London or Scottish Military radar service is available to every aircraft — airliners, GA and military alike.</li>
+          <li><strong>In open FIR (more than 40nm from a controlled airport, below FL245):</strong> London or Scottish Military provide radar information when no civil unit has jurisdiction.</li>
+          <li><strong>Military callsigns:</strong> RRR (RAF), NAF (Royal Navy), RCH (USAF Air Mobility Command "Reach") and other military prefixes are flagged as definitely on military frequencies at any altitude.</li>
+          <li><strong>GA and VFR flights:</strong> Light aircraft and flights squawking 7000 below FL150 are almost always in Class G and likely talking to a LARS unit or FIR.</li>
+        </ul>
+        <p><strong>London Military (Swanwick Mil):</strong> Central/East/South 135.150, NW/West 127.450, Brize Radar LARS 124.275, London FIR 124.600 / 124.750.</p>
+        <p><strong>Scottish Military (Prestwick Mil):</strong> North ICF 134.300, South ICF 135.925, East 124.050, West 127.275, Scottish FIR 119.875, Leeming LARS 133.375.</p>
+        <div class="doc-tip">The reasoning panel explains exactly why a military frequency appears for any given aircraft — for example: <em>"FL060 — below airways base (FL075). ALL aircraft in Class G/E may be on London/Scottish Military for radar service."</em></div>
+      </div>
 
-  <!-- CONFIDENCE SCORES -->
-  <div class="doc-section">
-    <h2>Confidence Scores</h2>
-    <p>Every frequency card shows a percentage confidence score with a colour-coded bar:</p>
-    <ul>
-      <li><strong style="color:var(--green)">85–100% (green)</strong> — high confidence. Position matches a known sector boundary precisely, or a published airport frequency is being used.</li>
-      <li><strong style="color:var(--amber)">65–84% (amber)</strong> — moderate confidence. Likely correct but sector boundaries overlap or the aircraft is near a handoff point.</li>
-      <li><strong style="color:var(--red)">Below 65% (red)</strong> — lower confidence. Possible alternate frequency, transit situation, or adjacent sector.</li>
-    </ul>
-    <p>The card labelled <strong>MOST LIKELY</strong> (blue border) is the engine's primary recommendation. The card labelled <strong>NEXT SECTOR</strong> (amber border) is the predicted handoff frequency — tune to this before the transfer call comes.</p>
-  </div>
+      <div class="doc-section">
+        <h2>Route Resolution</h2>
+        <p>The route bar shows departure and destination airports resolved in priority order:</p>
+        <ul>
+          <li><strong style="color:var(--green)">LIVE</strong> — Aviationstack API lookup using the IATA flight number. Returns filed departure, arrival and flight status. Requires a free key (see ⚙ API KEY).</li>
+          <li><strong style="color:var(--blue)">SCHEDULE DB</strong> — Built-in flight number range database of 75 route entries covering: British Airways (BAW/SHT), easyJet (EZY), Ryanair (RYR), Jet2 (EXS), Loganair (LOG), TUI (TOM), American Airlines (AAL) including AAL195 LHR→PHX, Lufthansa (DLH), KLM, Emirates (UAE), Air France (AFR), Norwegian (NAX), Wizz Air (WZZ), Scandinavian (SAS).</li>
+          <li><strong style="color:var(--amber)">INFERRED</strong> — Departure only: inferred from position when on ground or departing within 15nm of an airport. Destination heading inference is <strong>suppressed for aircraft above FL200 in cruise</strong> — high-altitude aircraft transiting the UK are almost certainly not landing at a nearby airport, and guessing incorrectly is worse than showing no destination.</li>
+        </ul>
+      </div>
 
-  <!-- LARS -->
-  <div class="doc-section">
-    <h2>LARS — Lower Airspace Radar Service</h2>
-    <p>LARS is a free radar advisory service for aircraft flying below FL100, provided by a number of civil and military radar units around the UK. It is available to all aircraft on request — you do not need to be military or IFR to use it. SKYWATCH surfaces LARS frequencies when an aircraft is below FL100:</p>
-    <ul>
-      <li><strong>Brize Radar 124.275</strong> — primary LARS for central England, operated by RAF Brize Norton</li>
-      <li><strong>Leeming LARS 133.375</strong> — Yorkshire corridor, operated by RAF Leeming</li>
-    </ul>
-    <p>Other LARS units exist across the UK (Marham, Valley, Shawbury etc.) — SKYWATCH surfaces the most relevant one based on latitude.</p>
-  </div>
+      <div class="doc-section">
+        <h2>Confidence Scores</h2>
+        <p>Every frequency card shows a percentage with a colour bar. Only frequencies scoring <strong>70% or above</strong> are shown:</p>
+        <ul>
+          <li><strong style="color:var(--green)">85–100% (green)</strong> — high confidence. Directly matches known sector boundaries or published airport frequency.</li>
+          <li><strong style="color:var(--amber)">70–84% (amber)</strong> — moderate confidence. Likely correct but near a sector boundary or handoff point.</li>
+        </ul>
+        <p><strong>MOST LIKELY</strong> (blue border) — the primary working frequency. <strong>NEXT SECTOR</strong> (amber border) — the predicted handoff frequency, always shown regardless of confidence score.</p>
+      </div>
 
-  <!-- SQUAWK CODES -->
-  <div class="doc-section">
-    <h2>Squawk Codes</h2>
-    <ul>
-      <li><strong style="color:var(--red)">7700</strong> — General emergency. All ATC units and aircraft monitor 121.500 MHz.</li>
-      <li><strong style="color:var(--amber)">7600</strong> — Radio communications failure. Aircraft follows lost comms procedures.</li>
-      <li><strong style="color:var(--red)">7500</strong> — Unlawful interference / hijack. Covert squawk.</li>
-      <li><strong style="color:var(--dim)">7000</strong> — Standard VFR squawk in European airspace (Class G).</li>
-      <li><strong style="color:var(--blue)">2000</strong> — Entering controlled airspace from uncontrolled airspace.</li>
-    </ul>
-  </div>
+      <div class="doc-section">
+        <h2>LARS — Lower Airspace Radar Service</h2>
+        <p>LARS is a free radar advisory service for aircraft below FL100, available to <strong>all aircraft on request</strong> — you do not need to be military or IFR. SKYWATCH surfaces LARS frequencies when an aircraft is below FL100:</p>
+        <ul>
+          <li><strong>Leeming LARS 133.375</strong> — Yorkshire and Pennines corridor, operated by RAF Leeming</li>
+          <li><strong>Brize Radar 124.275</strong> — central England, operated by RAF Brize Norton</li>
+        </ul>
+      </div>
 
-  <!-- DATA SOURCES -->
-  <div class="doc-section">
-    <h2>Data Sources</h2>
-    <ul>
-      <li><strong>Live aircraft positions:</strong> adsb.fi → adsb.lol → airplanes.live (tried in sequence, all free, no key required, community ADS-B networks). Refresh every 45 seconds.</li>
-      <li><strong>Civil sector frequencies:</strong> UK AIP ENR 2.1 (NATS), EGPH frequency cards (Scottish Control named sectors), RadioReference Swanwick Civil subcategory (London Control named sectors).</li>
-      <li><strong>Military sector frequencies:</strong> UK AIP, RadioReference, verified listener databases for Swanwick Mil and Prestwick Mil VHF frequencies.</li>
-      <li><strong>Airport frequencies:</strong> Published UK AIP AD 2 entries for 14 airports covering Leeds Bradford, Newcastle, Humberside, Manchester, Blackpool, Liverpool, Hawarden, Glasgow, Edinburgh, Aberdeen, Prestwick, Birmingham, Leeming RAF, Topcliffe RAF.</li>
-      <li><strong>Route database:</strong> Built-in schedule database of 65 flight number ranges for major UK operators. Optional Aviationstack API for live flight data (500 free calls/month, no credit card).</li>
-    </ul>
-  </div>
+      <div class="doc-section">
+        <h2>Squawk Codes</h2>
+        <ul>
+          <li><strong style="color:var(--red)">7700</strong> — General emergency</li>
+          <li><strong style="color:var(--amber)">7600</strong> — Radio communications failure. Aircraft follows lost comms procedure.</li>
+          <li><strong style="color:var(--red)">7500</strong> — Unlawful interference / hijack</li>
+          <li><strong style="color:var(--dim)">7000</strong> — Standard VFR squawk in European airspace</li>
+          <li><strong style="color:var(--blue)">2000</strong> — Entering controlled airspace from uncontrolled airspace</li>
+        </ul>
+      </div>
 
-  <!-- GETTING LIVE DATA -->
-  <div class="doc-section">
-    <h2>Getting Live Data on Your Phone</h2>
-    <ol style="padding-left:0">
-      <li class="doc-tip" style="margin-bottom:6px"><strong>Step 1:</strong> Use the download button above to save <code>skywatch-unified.html</code> to your phone's storage.</li>
-      <li class="doc-tip" style="margin-bottom:6px"><strong>Step 2:</strong> Open your Files app, locate the saved file and tap it — choose Safari (iPhone) or Chrome (Android) to open it.</li>
-      <li class="doc-tip" style="margin-bottom:6px"><strong>Step 3:</strong> Live aircraft load automatically. The header badge will show <span style="color:var(--green)">LIVE · [N] AC · adsb.fi</span> when data is flowing.</li>
-      <li class="doc-tip"><strong>Optional Step 4:</strong> For confirmed live route data, tap <strong>API KEY</strong> in the header and paste your free Aviationstack key. Sign up at <a href="https://aviationstack.com/signup/free" target="_blank" style="color:var(--blue)">aviationstack.com/signup/free</a> — no credit card required, 500 calls per month.</li>
-    </ol>
-    <div class="doc-tip"><strong>Important advisory:</strong> All frequencies are computed from published UK AIP data and positional logic. They are indicative, not guaranteed. Sector boundaries are approximations. Always verify against current charts, NOTAMs and ATIS before use. Sector assignments change with controller handoffs and are not available to this app in real time.</div>
-  </div>
+      <div class="doc-section">
+        <h2>Data Sources</h2>
+        <ul>
+          <li><strong>Live aircraft:</strong> adsb.fi → adsb.lol → airplanes.live (tried in sequence, all free, no key, community ADS-B networks). Refresh every 45 seconds.</li>
+          <li><strong>Civil sector frequencies:</strong> UK AIP ENR 2.1 (NATS), EGPH frequency cards, Transmission1 listener database, RadioReference Swanwick Civil subcategory.</li>
+          <li><strong>Military frequencies:</strong> UK AIP, RadioReference, verified listener databases for Swanwick Mil and Prestwick Mil VHF frequencies.</li>
+          <li><strong>Airport frequencies:</strong> Published UK AIP AD 2 entries for Leeds Bradford, Newcastle, Humberside, Manchester, Blackpool, Liverpool, Hawarden, Glasgow, Edinburgh, Aberdeen, Prestwick, Birmingham, Leeming RAF, Topcliffe RAF.</li>
+          <li><strong>Route database:</strong> 75 flight number range entries for major UK and transatlantic operators. Optional Aviationstack API for live data (500 free calls/month, no credit card required).</li>
+        </ul>
+      </div>
 
-</div>
-```
+      <div class="doc-section">
+        <h2>Getting Live Data on Your Phone</h2>
+        <ol style="padding-left:0">
+          <li class="doc-tip" style="margin-bottom:6px"><strong>Step 1:</strong> Use the download button to save <code>skywatch-unified.html</code> to your phone.</li>
+          <li class="doc-tip" style="margin-bottom:6px"><strong>Step 2:</strong> Open your Files app, find the file and tap it — choose Safari (iPhone) or Chrome (Android).</li>
+          <li class="doc-tip" style="margin-bottom:6px"><strong>Step 3:</strong> Live aircraft load automatically. The header badge shows <span style="color:var(--green)">LIVE · [N] AC · adsb.fi</span>.</li>
+          <li class="doc-tip"><strong>Optional Step 4:</strong> Tap <strong>⚙ API KEY</strong> and paste a free Aviationstack key for confirmed live route data. Sign up at <a href="https://aviationstack.com/signup/free" target="_blank" style="color:var(--blue)">aviationstack.com/signup/free</a> — no credit card, 500 calls/month.</li>
+        </ol>
+        <div class="doc-tip" style="margin-top:10px"><strong>Advisory:</strong> All frequencies are computed from published UK AIP data and positional logic. They are indicative, not guaranteed. Sector boundaries are approximations and assignments change with controller handoffs. Always verify against current charts and NOTAMs before use.</div>
+      </div>
 
+    </div>
   </div>
 </div>
 
 <div class="main">
 
   <!-- COL 1: Aircraft list -->
-
   <div class="col-list">
     <div class="col-list-head">
       <div style="font-size:0.6rem;color:var(--dim);letter-spacing:0.12em" id="traffic-label">TRAFFIC · 100mi · LEEDS</div>
@@ -496,14 +475,12 @@ header{flex-shrink:0;display:flex;align-items:center;justify-content:space-betwe
   </div>
 
   <!-- COL 2: Map -->
-
   <div class="col-map">
     <div class="map-badge" id="map-badge">LIVE · 100mi · LEEDS · UK</div>
     <div id="map"></div>
   </div>
 
   <!-- COL 3: Frequency advisor -->
-
   <div class="col-freq">
     <div class="col-freq-head">📡 <span id="freq-title">ATC FREQUENCIES</span></div>
     <div class="col-freq-body" id="freq-body">
@@ -518,7 +495,6 @@ header{flex-shrink:0;display:flex;align-items:center;justify-content:space-betwe
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
-
 <script>
 
 // ═══════════════════════════════════════════════════════════
@@ -601,7 +577,7 @@ const SECTORS = [
   { id:'ScDEANN', altMin:24500,altMax:66000,lat:[56.5,61.0], lon:[-6.0,-1.0], freq:'135.850', name:'Scottish Upper – Deancross North',     desc:'Deancross North sector FL245+, N.Scotland upper',                              conf:90, centre:[58.0,-3.0] },
   { id:'ScMONTS', altMin:24500,altMax:66000,lat:[54.5,57.0], lon:[-2.0,2.0],  freq:'126.925', name:'Scottish Upper – Montrose South',      desc:'Montrose South FL245+, eastern Scotland / North Sea upper',                    conf:89, centre:[55.8,0.0]  },
   { id:'ScMONTN', altMin:24500,altMax:66000,lat:[57.0,61.0], lon:[-2.0,2.0],  freq:'132.492', name:'Scottish Upper – Montrose North',      desc:'Montrose North FL245+, far north / North Sea upper',                           conf:88, centre:[58.5,0.0]  },
-  { id:'ScCENH',  altMin:24500,altMax:66000,lat:[54.5,57.0], lon:[-5.0,-2.0], freq:'132.725', name:'Scottish Upper – Central High',        desc:'Central High FL245+, central Scotland upper',                                  conf:89, centre:[55.8,-3.5] },
+  { id:'ScCENH',  altMin:24500,altMax:66000,lat:[54.0,57.0], lon:[-5.0,-2.0], freq:'132.725', name:'Scottish Upper – Central High',        desc:'Central High FL245+, central Scotland upper',                                  conf:89, centre:[55.8,-3.5] },
   { id:'ScRATHE', altMin:24500,altMax:66000,lat:[54.0,57.0], lon:[-8.0,-5.0], freq:'125.675', name:'Scottish Upper – Rathlin East',        desc:'Rathlin East FL245+, N.Ireland / Irish Sea upper',                             conf:87, centre:[55.5,-6.5] },
   { id:'ScRATHW', altMin:24500,altMax:66000,lat:[54.5,57.0], lon:[-9.5,-7.0], freq:'129.100', name:'Scottish Upper – Rathlin West',        desc:'Rathlin West FL245+, W.Ireland / Atlantic upper',                              conf:85, centre:[55.5,-8.0] },
   { id:'ScWCH',   altMin:24500,altMax:66000,lat:[54.5,58.0], lon:[-9.0,-5.5], freq:'133.200', name:'Scottish Upper – West Coast High',     desc:'West Coast High FL245+ (standby 133.200), NW Scotland upper',                 conf:86, centre:[56.5,-7.0] },
@@ -618,12 +594,15 @@ const SECTORS = [
   // London Upper sectors — extended to cover realistic traffic flows
   { id:'LcUE_S02',altMin:24500,altMax:66000, lat:[51.0,54.5], lon:[-1.5,2.0],  freq:'127.425', name:'London Upper – East S02',             desc:'London Upper East S02, FL245+ eastern England',                                conf:88, centre:[52.5,0.5]  },
   { id:'LcUE_S26',altMin:24500,altMax:66000, lat:[50.0,54.5], lon:[-2.5,0.5],  freq:'132.600', name:'London Upper – Middle East S26',      desc:'London Upper Middle East S26, FL245+ central-eastern England',                 conf:88, centre:[52.0,-1.0] },
-  { id:'LcUW_S25',altMin:24500,altMax:66000, lat:[49.5,54.0], lon:[-5.5,-2.0], freq:'132.167', name:'London Upper – Middle West S25',      desc:'London Upper Middle West S25, FL245+ western England',                         conf:87, centre:[51.5,-3.5] },
+  { id:'LcUW_S25',altMin:24500,altMax:66000, lat:[49.5,54.5], lon:[-5.5,-2.0], freq:'132.167', name:'London Upper – Middle West S25',      desc:'London Upper Middle West S25, FL245+ western England',                         conf:87, centre:[51.5,-3.5] },
   { id:'LcUS24',  altMin:24500,altMax:66000, lat:[49.0,52.5], lon:[-2.5,2.0],  freq:'134.458', name:'London Upper – South S24',            desc:'London Upper South S24, FL245+ southern England / Channel',                    conf:87, centre:[50.5,0.0]  },
   { id:'LcHurnE', altMin:24500,altMax:66000, lat:[49.5,52.5], lon:[-3.0,0.5],  freq:'135.050', name:'London Upper – Hurn East S19',        desc:'Hurn East S19, FL245+ S.England',                                             conf:86, centre:[51.0,-1.0] },
   { id:'LcHurnW', altMin:24500,altMax:66000, lat:[49.5,52.5], lon:[-6.0,-2.5], freq:'129.425', name:'London Upper – Hurn West S20/21',     desc:'Hurn West S20/21, FL245+ SW England / Bristol Channel',                        conf:86, centre:[51.0,-3.5] },
   // Maastricht UAC — used for upper airspace eastbound into Europe
   { id:'MaasUAC', altMin:24500,altMax:66000, lat:[50.0,53.5], lon:[0.5,6.0],   freq:'132.450', name:'Maastricht UAC',                      desc:'Maastricht Upper Area Control, FL245+ NW Europe / Channel eastbound',          conf:84, centre:[51.5,3.0]  },
+  // Shanwick Oceanic — westbound transatlantic, takes over from Scottish Control ~15W
+  // Aircraft receive oceanic clearance on these freqs before entering MNPS airspace
+  { id:'ShanOcn', altMin:24500,altMax:66000, lat:[51.0,61.0], lon:[-15.0,-8.0],freq:'123.950', name:'Shanwick Oceanic',                     desc:'Shanwick Oceanic ACC — westbound transatlantic clearances, ~15W onward',       conf:87, centre:[56.0,-12.0] },
 ];
 
 // ═══════════════════════════════════════════════════════════
@@ -834,9 +813,12 @@ function getEnrouteSector(lat, lon, altFt, hdg, speedKts, vs, excludeFreq) {
 function getNextSector(lat, lon, altFt, hdg, speedKts, vs, currentFreq) {
   if (!lat || !lon || !hdg || !speedKts || speedKts < 50) return null;
 
+  // Look further ahead for upper airspace — oceanic/distant sector transitions need more time
+  const isUpperAirspace = altFt >= 24500;
   const projections = [
     { mins: 12, distKm: (speedKts * 1.852 / 60) * 12 },
     { mins: 22, distKm: (speedKts * 1.852 / 60) * 22 },
+    ...(isUpperAirspace ? [{ mins: 35, distKm: (speedKts * 1.852 / 60) * 35 }] : []),
   ];
 
   for (const { mins, distKm } of projections) {
@@ -848,7 +830,6 @@ function getNextSector(lat, lon, altFt, hdg, speedKts, vs, currentFreq) {
       if (altFt < s.altMin || altFt > s.altMax) continue;
       if (pLat < s.lat[0] || pLat > s.lat[1]) continue;
       if (pLon < s.lon[0] || pLon > s.lon[1]) continue;
-      // Score using projected position, same heading/speed (aircraft maintains track)
       const score = Math.min(scoreSector(s, pLat, pLon, altFt, hdg, speedKts, vs) - 8, 78);
       if (score > bestScore) { bestScore = score; best = { ...s, type:'atc', confidence: score, minutesAhead: mins }; }
     }
@@ -1306,6 +1287,17 @@ const ROUTE_DB = [
   ['DLH',900,999,'MUC','ORD','Munich','Chicago O\'Hare'],
   ['DLH',400,500,'FRA','JFK','Frankfurt','New York JFK'],
   ['DLH',500,600,'FRA','LAX','Frankfurt','Los Angeles'],
+  // American Airlines (AAL) — LHR transatlantic overflights above Leeds
+  ['AAL',50,99,  'LHR','JFK','London Heathrow','New York JFK'],
+  ['AAL',100,149,'LHR','ORD','London Heathrow','Chicago O\'Hare'],
+  ['AAL',150,194,'LHR','MIA','London Heathrow','Miami'],
+  ['AAL',195,195,'LHR','PHX','London Heathrow','Phoenix Sky Harbor'],
+  ['AAL',196,249,'LHR','LAX','London Heathrow','Los Angeles'],
+  ['AAL',250,299,'LHR','DFW','London Heathrow','Dallas Fort Worth'],
+  ['AAL',300,349,'LHR','BOS','London Heathrow','Boston'],
+  ['AAL',350,399,'LHR','PHL','London Heathrow','Philadelphia'],
+  ['AAL',400,499,'LHR','CLT','London Heathrow','Charlotte'],
+  ['AAL',700,799,'LHR','LAX','London Heathrow','Los Angeles'],
   // KLM (KLM) — overflights
   ['KLM',600,700,'AMS','JFK','Amsterdam','New York JFK'],
   ['KLM',601,605,'AMS','LAX','Amsterdam','Los Angeles'],
@@ -1446,17 +1438,19 @@ async function resolveRoute(ac) {
     }
   }
 
-  // 4. Heading-based destination — ONLY use if within tight angle AND known airport
-  // Require within 20° of track (was 35°) and only include airports we know
-  if (ac.true_track != null && ac.latitude && ac.longitude && (phase === 'cruise' || phase === 'approach')) {
+  // 4. Heading-based destination — only for lower altitude flights likely actually heading to a UK airport
+  // Suppress for FL200+ cruise aircraft — they are almost certainly transiting, not landing locally
+  const altFtRoute = ((ac.geo_altitude ?? ac.baro_altitude) || 0) * 3.28084;
+  const tooHighForLocalArr = altFtRoute > 20000 && phase === 'cruise';
+
+  if (!tooHighForLocalArr && ac.true_track != null && ac.latitude && ac.longitude && (phase === 'cruise' || phase === 'approach')) {
     let minAngle = 20, bestApt = null;
     for (const [icao, apt] of Object.entries(AIRPORTS)) {
-      if (result.dep && icao === result.dep) continue; // don't suggest same as departure
+      if (result.dep && icao === result.dep) continue;
       const dx = apt.lon - ac.longitude, dy = apt.lat - ac.latitude;
       const bearing = (Math.atan2(dx,dy)*180/Math.PI+360)%360;
       const diff = Math.abs(((bearing-ac.true_track)+180+360)%360-180);
       const d = distNMf(ac.latitude, ac.longitude, apt.lat, apt.lon);
-      // Only flag if very close to track AND within reasonable distance
       if (diff < minAngle && d > 15 && d < 200) {
         minAngle = diff;
         bestApt = { icao, ...apt, distNM:Math.round(d), diff: Math.round(diff) };
@@ -2198,6 +2192,5 @@ updateLocModal();
 fetchAircraft();
 setInterval(fetchAircraft, 45000);
 </script>
-
 </body>
 </html>
